@@ -1,0 +1,13 @@
+.navContainer {
+  background-color: rgba(24, 23, 23, 0.713);
+  width: 100%;
+  height: 10lvh;
+  display: flex;
+  align-items: center;
+  color: whitesmoke;
+}
+
+.h1 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 1rem;
+}
