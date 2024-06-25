@@ -1,12 +1,12 @@
 import styles from "@/Css/page.module.css";
-import Aside from "./components/Aside";
 import Navbar from "./components/Navbar";
+import ForumSection from "./components/ForumSection";
 
 export default function MainPage() {
   return (
     <main className={styles.main}>
       <Navbar />
-      <Aside />
+      <ForumSection />
     </main>
   );
 }
