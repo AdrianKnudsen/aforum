@@ -8,7 +8,7 @@ export default function navbar() {
       <div className={styles.logoContainer}>
         <Image
           className={styles.logo}
-          src="/images/aForum Logo.png"
+          src="/images/AForumLogo.png"
           alt="logo-img"
           width={120}
           height={35}
