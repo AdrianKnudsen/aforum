@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .divider {
@@ -52,6 +53,7 @@
   border-radius: 10px;
   margin: 1px 0;
   padding: 3px;
+  cursor: pointer;
 }
 
 .circle {
@@ -79,4 +81,46 @@
   background-color: #c5e1a5;
   border-radius: 50%;
   margin: 0 5px;
+}
+
+.addTopicForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.addTopicForm input,
+.addTopicForm textarea {
+  margin: 5px 0;
+  padding: 10px;
+  border: 2px solid #3a3a3a;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.addTopicForm button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.selectedTopic {
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid #3a3a3a;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.selectedTopic h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.selectedTopic p {
+  margin: 10px 0 0 0;
+  font-size: 18px;
 }
