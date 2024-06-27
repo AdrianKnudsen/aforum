@@ -11,6 +11,7 @@ const client = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
   useCdn: true,
   token: process.env.SANITY_API_TOKEN || "",
+  apiVersion: "2023-06-01",
 });
 
 export default function ForumSection() {
