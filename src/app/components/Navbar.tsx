@@ -29,14 +29,16 @@ export default function Navbar() {
   return (
     <div className={styles.navContainer}>
       <div className={styles.logoContainer}>
-        <Image
-          className={styles.logo}
-          src="/images/AForumLogo.png"
-          alt="logo-img"
-          width={120}
-          height={35}
-          priority
-        />
+        <div className={styles.logoWrapper}>
+          <Image
+            className={styles.logo}
+            src="/images/AForumLogo.png"
+            alt="logo-img"
+            fill
+            priority
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
       </div>
       <div className={styles.hamburgerMenuContainer}>
         <button

@@ -6,8 +6,10 @@ export default function Aside() {
     <div className={styles.aSideContainer}>
       <ul>
         <li>
-          <p>Welcome</p>
-          <p>Login</p>
+          <p>General</p>
+          <p>Technology</p>
+          <p>Lifestyle and Hobbies</p>
+          <p>Science and Nature</p>
         </li>
       </ul>
     </div>
