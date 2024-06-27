@@ -30,7 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 .divider {
@@ -53,7 +52,6 @@
   border-radius: 10px;
   margin: 1px 0;
   padding: 3px;
-  cursor: pointer;
 }
 
 .circle {
