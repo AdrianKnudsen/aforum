@@ -15,6 +15,17 @@ const topicSchema = defineType({
       type: "text",
       title: "Content",
     },
+    {
+      name: "createdAt",
+      type: "datetime",
+      title: "Created At",
+      options: {
+        dateFormat: "YYYY-MM-DD",
+        timeFormat: "HH:mm",
+        timeStep: 15,
+        calendarTodayLabel: "Today",
+      },
+    },
   ],
 });
 

@@ -36,6 +36,7 @@
   height: 2px;
   background-color: #3a3a3a;
   margin: 10px 0;
+  border-radius: 5rem;
 }
 
 .itemList {
@@ -45,6 +46,7 @@
 
 .item {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   background-color: #ffffff;
@@ -52,6 +54,18 @@
   border-radius: 10px;
   margin: 1px 0;
   padding: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.item.selectedItem {
+  flex-direction: column;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .circle {
@@ -63,6 +77,20 @@
 
 .text {
   font-size: 18px;
+  font-weight: 600;
+}
+
+.topicText {
+  display: flex;
+  margin-left: 12%;
+}
+
+.content {
+  width: 100%;
+  padding: 15px;
+  border-top: 2px solid #3a3a3a;
+  font-size: 16px;
+  margin-top: 0.3rem;
 }
 
 .pagination {
@@ -94,31 +122,26 @@
   border: 2px solid #3a3a3a;
   border-radius: 5px;
   font-size: 16px;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 .addTopicForm button {
-  padding: 10px;
+  font-size: 1.3rem;
+  padding: 12px;
   border: none;
   border-radius: 5px;
   background-color: #3a3a3a;
   color: #ffffff;
   cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
 }
 
-.selectedTopic {
-  margin-top: 20px;
-  padding: 10px;
-  border: 2px solid #3a3a3a;
-  border-radius: 10px;
-  background-color: #ffffff;
+.addTopicForm button:hover {
+  background-color: #8cb150;
 }
 
-.selectedTopic h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.selectedTopic p {
-  margin: 10px 0 0 0;
-  font-size: 18px;
+.addTopicForm input:focus,
+.addTopicForm textarea:focus {
+  border: #8cb150 solid 2px;
+  outline: none;
 }

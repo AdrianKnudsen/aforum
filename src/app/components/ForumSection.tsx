@@ -11,15 +11,18 @@ const client = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
   useCdn: true,
   token: process.env.SANITY_API_TOKEN || "",
-  apiVersion: "2023-06-01",
+  apiVersion: "2024-06-27",
 });
 
 export default function ForumSection() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [newTopicTitle, setNewTopicTitle] = useState("");
   const [newTopicContent, setNewTopicContent] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const [selectedTopicIndex, setSelectedTopicIndex] = useState<number | null>(
+    null
+  );
   const [showAddTopic, setShowAddTopic] = useState(false);
+  const [topicsToShow, setTopicsToShow] = useState(2);
 
   useEffect(() => {
     fetchTopics();
@@ -27,7 +30,7 @@ export default function ForumSection() {
 
   const fetchTopics = async () => {
     const result: Topic[] = await client.fetch(
-      `*[_type == "topic"]{title, content}`
+      `*[_type == "topic"] | order(createdAt desc){title, content, createdAt}`
     );
     setTopics(result);
   };
@@ -39,6 +42,7 @@ export default function ForumSection() {
       _type: "topic",
       title: newTopicTitle,
       content: newTopicContent,
+      createdAt: new Date().toISOString(),
     });
     fetchTopics();
     setNewTopicTitle("");
@@ -46,8 +50,14 @@ export default function ForumSection() {
     setShowAddTopic(false);
   };
 
-  const handleTopicClick = (topic: Topic) => {
-    setSelectedTopic(topic);
+  const handleTopicClick = (index: number) => {
+    setSelectedTopicIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleToggleTopics = () => {
+    setTopicsToShow((prevTopicsToShow) =>
+      prevTopicsToShow === 2 ? topics.length : 2
+    );
   };
 
   return (
@@ -76,25 +86,34 @@ export default function ForumSection() {
       </div>
       <div className={styles.divider}></div>
       <div className={styles.itemList}>
-        {topics.map((topic, index) => (
+        {topics.slice(0, topicsToShow).map((topic, index) => (
           <div
-            className={styles.item}
+            className={`${styles.item} ${
+              selectedTopicIndex === index ? styles.selectedItem : ""
+            }`}
             key={index}
-            onClick={() => handleTopicClick(topic)}
+            onClick={() => handleTopicClick(index)}
           >
-            <div className={styles.circle}>
-              <Image
-                src="/svg/AForumIcon2.svg"
-                alt="Aforum circle icon"
-                width={30}
-                height={30}
-              />
+            <div className={styles.itemHeader}>
+              <div className={styles.circle}>
+                <Image
+                  src="/svg/AForumIcon2.svg"
+                  alt="Aforum circle icon"
+                  width={30}
+                  height={30}
+                />
+              </div>
+              <div className={styles.text}>{topic.title}</div>
             </div>
-            <div className={styles.text}>{topic.title}</div>
+            {selectedTopicIndex === index && (
+              <div className={styles.content}>
+                <p className={styles.topicText}>{topic.content}</p>
+              </div>
+            )}
           </div>
         ))}
       </div>
-      <div className={styles.pagination}>
+      <div className={styles.pagination} onClick={handleToggleTopics}>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
@@ -113,12 +132,6 @@ export default function ForumSection() {
             placeholder="New topic content"
           />
           <button onClick={handleAddTopic}>Add Topic</button>
-        </div>
-      )}
-      {selectedTopic && (
-        <div className={styles.selectedTopic}>
-          <h2>{selectedTopic.title}</h2>
-          <p>{selectedTopic.content}</p>
         </div>
       )}
     </div>
