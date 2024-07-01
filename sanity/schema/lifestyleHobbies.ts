@@ -1,7 +1,7 @@
 const lifestyleHobbiesPostSchema = {
-  name: "lifestyleHobbies",
+  name: "lifestyleHobbiesPost",
   type: "document",
-  title: "Lifestyle&Hobbies",
+  title: "Lifestyle & Hobbies",
   fields: [
     {
       name: "title",

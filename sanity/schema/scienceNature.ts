@@ -1,5 +1,5 @@
 const scienceNaturePostSchema = {
-  name: "scienceNature",
+  name: "scienceNaturePost",
   type: "document",
   title: "Science & Nature",
   fields: [
