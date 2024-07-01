@@ -15,7 +15,11 @@ const client = createClient({
 });
 
 interface ForumSectionProps {
-  category: "generalPost" | "technologyPost";
+  category:
+    | "generalPost"
+    | "technologyPost"
+    | "lifestyleHobbiesPost"
+    | "scienceNaturePost";
   title: string;
 }
 
