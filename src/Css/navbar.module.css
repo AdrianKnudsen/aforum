@@ -8,7 +8,10 @@
   gap: 126px;
   border-radius: 5px;
   background: #3a3a3a;
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10px;
+  z-index: 1000;
 }
 
 .logo {
