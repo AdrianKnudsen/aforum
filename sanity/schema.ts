@@ -1,7 +1,7 @@
-// src/schemas/schema.ts
 import { type SchemaTypeDefinition } from "sanity";
-import topicSchema from "./schema/topic";
+import generalPostSchema from "./schema/generalPost";
+import technologyPostSchema from "./schema/technologyPost";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [topicSchema],
+  types: [generalPostSchema, technologyPostSchema],
 };

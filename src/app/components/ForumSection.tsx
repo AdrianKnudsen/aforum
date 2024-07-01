@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { createClient } from "next-sanity";
 import styles from "@/Css/forumSection.module.css";
-import { Topic } from "@/types/types";
+import { Post } from "@/types/types";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
@@ -14,49 +14,56 @@ const client = createClient({
   apiVersion: "2024-06-27",
 });
 
-export default function ForumSection() {
-  const [topics, setTopics] = useState<Topic[]>([]);
-  const [newTopicTitle, setNewTopicTitle] = useState("");
-  const [newTopicContent, setNewTopicContent] = useState("");
-  const [selectedTopicIndex, setSelectedTopicIndex] = useState<number | null>(
+interface ForumSectionProps {
+  category: "generalPost" | "technologyPost";
+  title: string;
+}
+
+export default function ForumSection({ category, title }: ForumSectionProps) {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [newPostTitle, setNewPostTitle] = useState("");
+  const [newPostContent, setNewPostContent] = useState("");
+  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(
     null
   );
-  const [showAddTopic, setShowAddTopic] = useState(false);
-  const [topicsToShow, setTopicsToShow] = useState(2);
+  const [showAddPost, setShowAddPost] = useState(false);
+  const [postsToShow, setPostsToShow] = useState(2);
+
+  const fetchPosts = useCallback(async () => {
+    const result: Post[] = await client.fetch(
+      `*[_type == $category] | order(createdAt desc){title, content, createdAt}`,
+      { category }
+    );
+    setPosts(result);
+  }, [category]);
 
   useEffect(() => {
-    fetchTopics();
-  }, []);
+    fetchPosts();
+  }, [fetchPosts]);
 
-  const fetchTopics = async () => {
-    const result: Topic[] = await client.fetch(
-      `*[_type == "topic"] | order(createdAt desc){title, content, createdAt}`
-    );
-    setTopics(result);
-  };
-
-  const handleAddTopic = async () => {
-    if (newTopicTitle.trim() === "" || newTopicContent.trim() === "") return;
+  const handleAddPost = async () => {
+    if (newPostTitle.trim() === "" || newPostContent.trim() === "") return;
 
     await client.create({
-      _type: "topic",
-      title: newTopicTitle,
-      content: newTopicContent,
+      _type: category,
+      title: newPostTitle,
+      content: newPostContent,
       createdAt: new Date().toISOString(),
     });
-    fetchTopics();
-    setNewTopicTitle("");
-    setNewTopicContent("");
-    setShowAddTopic(false);
+    setNewPostTitle("");
+    setNewPostContent("");
+    setShowAddPost(false);
+
+    fetchPosts();
   };
 
-  const handleTopicClick = (index: number) => {
-    setSelectedTopicIndex((prevIndex) => (prevIndex === index ? null : index));
+  const handlePostClick = (index: number) => {
+    setSelectedPostIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const handleToggleTopics = () => {
-    setTopicsToShow((prevTopicsToShow) =>
-      prevTopicsToShow === 2 ? topics.length : 2
+  const handleTogglePosts = () => {
+    setPostsToShow((prevPostsToShow) =>
+      prevPostsToShow === 2 ? posts.length : 2
     );
   };
 
@@ -71,10 +78,10 @@ export default function ForumSection() {
             height={30}
           />
         </div>
-        <div className={styles.title}>General</div>
+        <div className={styles.title}>{title}</div>
         <div
           className={styles.addButton}
-          onClick={() => setShowAddTopic(!showAddTopic)}
+          onClick={() => setShowAddPost(!showAddPost)}
         >
           <Image
             src="/svg/AForumIcon3.svg"
@@ -86,13 +93,13 @@ export default function ForumSection() {
       </div>
       <div className={styles.divider}></div>
       <div className={styles.itemList}>
-        {topics.slice(0, topicsToShow).map((topic, index) => (
+        {posts.slice(0, postsToShow).map((post, index) => (
           <div
             className={`${styles.item} ${
-              selectedTopicIndex === index ? styles.selectedItem : ""
+              selectedPostIndex === index ? styles.selectedItem : ""
             }`}
             key={index}
-            onClick={() => handleTopicClick(index)}
+            onClick={() => handlePostClick(index)}
           >
             <div className={styles.itemHeader}>
               <div className={styles.circle}>
@@ -103,35 +110,35 @@ export default function ForumSection() {
                   height={30}
                 />
               </div>
-              <div className={styles.text}>{topic.title}</div>
+              <div className={styles.text}>{post.title}</div>
             </div>
-            {selectedTopicIndex === index && (
+            {selectedPostIndex === index && (
               <div className={styles.content}>
-                <p className={styles.topicText}>{topic.content}</p>
+                <p className={styles.topicText}>{post.content}</p>
               </div>
             )}
           </div>
         ))}
       </div>
-      <div className={styles.pagination} onClick={handleToggleTopics}>
+      <div className={styles.pagination} onClick={handleTogglePosts}>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
       </div>
-      {showAddTopic && (
-        <div className={styles.addTopicForm}>
+      {showAddPost && (
+        <div className={styles.addPostForm}>
           <input
             type="text"
-            value={newTopicTitle}
-            onChange={(e) => setNewTopicTitle(e.target.value)}
-            placeholder="New topic title"
+            value={newPostTitle}
+            onChange={(e) => setNewPostTitle(e.target.value)}
+            placeholder="New post title"
           />
           <textarea
-            value={newTopicContent}
-            onChange={(e) => setNewTopicContent(e.target.value)}
-            placeholder="New topic content"
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+            placeholder="New post content"
           />
-          <button onClick={handleAddTopic}>Add Topic</button>
+          <button onClick={handleAddPost}>Add Post</button>
         </div>
       )}
     </div>

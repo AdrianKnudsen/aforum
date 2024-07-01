@@ -1,9 +1,7 @@
-import { defineType } from "sanity";
-
-const topicSchema = defineType({
-  name: "topic",
+const technologyPostSchema = {
+  name: "technologyPost",
   type: "document",
-  title: "Topic",
+  title: "Technology",
   fields: [
     {
       name: "title",
@@ -27,6 +25,6 @@ const topicSchema = defineType({
       },
     },
   ],
-});
+};
 
-export default topicSchema;
+export default technologyPostSchema;

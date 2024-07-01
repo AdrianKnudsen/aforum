@@ -109,14 +109,14 @@
   margin: 0 5px;
 }
 
-.addTopicForm {
+.addPostForm {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
 
-.addTopicForm input,
-.addTopicForm textarea {
+.addPostForm input,
+.addPostForm textarea {
   margin: 5px 0;
   padding: 10px;
   border: 2px solid #3a3a3a;
@@ -125,7 +125,7 @@
   font-family: "Josefin Sans", sans-serif;
 }
 
-.addTopicForm button {
+.addPostForm button {
   font-size: 1.3rem;
   padding: 12px;
   border: none;
@@ -136,12 +136,12 @@
   font-family: "Josefin Sans", sans-serif;
 }
 
-.addTopicForm button:hover {
+.addPostForm button:hover {
   background-color: #8cb150;
 }
 
-.addTopicForm input:focus,
-.addTopicForm textarea:focus {
+.addPostForm input:focus,
+.addPostForm textarea:focus {
   border: #8cb150 solid 2px;
   outline: none;
 }
