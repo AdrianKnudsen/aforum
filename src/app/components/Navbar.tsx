@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "@/Css/navbar.module.css";
 
 export default function Navbar() {
@@ -17,6 +18,11 @@ export default function Navbar() {
     }
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+    setShowLinks(false);
+  };
+
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
@@ -30,14 +36,17 @@ export default function Navbar() {
     <div className={styles.navContainer}>
       <div className={styles.logoContainer}>
         <div className={styles.logoWrapper}>
-          <Image
-            className={styles.logo}
-            src="/images/AForumLogo.png"
-            alt="logo-img"
-            fill
-            priority
-            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          <Link href="/" passHref>
+            <Image
+              className={styles.logo}
+              src="/images/AForumLogo.png"
+              alt="logo-img"
+              fill
+              priority
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onClick={closeMenu}
+            />
+          </Link>
         </div>
       </div>
       <div className={styles.hamburgerMenuContainer}>
@@ -55,28 +64,28 @@ export default function Navbar() {
           className={`${styles.navLinks} ${showLinks ? styles.showLinks : ""}`}
         >
           <li data-animation="to-top">
-            <a href="#">
+            <Link href="#" passHref onClick={closeMenu}>
               Search
               <span className={styles.outer} aria-hidden="true">
                 <span className={styles.inner}>Search</span>
               </span>
-            </a>
+            </Link>
           </li>
           <li data-animation="to-top">
-            <a href="#">
+            <Link href="#" passHref onClick={closeMenu}>
               Login
               <span className={styles.outer} aria-hidden="true">
                 <span className={styles.inner}>Login</span>
               </span>
-            </a>
+            </Link>
           </li>
           <li data-animation="to-top">
-            <a href="#">
+            <Link href="/about" passHref onClick={closeMenu}>
               About
               <span className={styles.outer} aria-hidden="true">
                 <span className={styles.inner}>About</span>
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
