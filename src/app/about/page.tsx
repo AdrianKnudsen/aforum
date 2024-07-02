@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "@/Css/about.module.css";
 
-export default function page() {
+export const metadata = {
+  title: "About Us - AForum",
+  description: "Learn more about AForum, our mission, and our team.",
+};
+
+export default function AboutPage() {
   return (
     <div className={styles.container}>
       <h1>About Us</h1>

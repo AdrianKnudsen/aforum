@@ -1,0 +1,41 @@
+.searchInputWrapper {
+  display: flex;
+  align-items: center;
+  background-color: #e0dddd;
+  border: 3px solid #8cb150;
+  border-radius: 30px;
+  padding: 5px 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-family: "Josefin Sans", sans-serif;
+  padding: 5px;
+}
+
+.searchButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  filter: invert(23%) sepia(22%) saturate(446%) hue-rotate(175deg)
+    brightness(93%) contrast(90%);
+}
+
+.searchButton:hover .searchIcon {
+  filter: invert(61%) sepia(61%) saturate(369%) hue-rotate(39deg)
+    brightness(92%) contrast(90%);
+}
