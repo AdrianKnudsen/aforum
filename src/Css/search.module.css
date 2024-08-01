@@ -39,3 +39,9 @@
   filter: invert(61%) sepia(61%) saturate(369%) hue-rotate(39deg)
     brightness(92%) contrast(90%);
 }
+
+@media (min-width: 768px) {
+  .searchInput {
+    padding: 0;
+  }
+}

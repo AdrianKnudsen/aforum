@@ -167,6 +167,22 @@
   transform: none;
 }
 
+.searchContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
 [data-animation="to-top"] .outer {
   transform: translateY(100%);
 }
@@ -208,18 +224,37 @@
   }
 }
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
+@media (min-width: 768px) {
+  .hamburgerMenuContainer {
+    display: none;
+  }
 
-.closeButton {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-left: 1rem;
+  .navMenu {
+    position: static;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    background: none;
+    border-radius: 0;
+  }
+
+  .navLinks {
+    flex-direction: row;
+    gap: 1.5rem;
+    opacity: 1;
+    transition: none;
+  }
+
+  .navLinks li {
+    margin: 0;
+  }
+
+  .navLinks a {
+    font-size: 18px;
+  }
+
+  .navContainer {
+    justify-content: space-between;
+    gap: 0;
+  }
 }

@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const toggleMenu = () => {
     if (showSearch) {
@@ -33,6 +34,26 @@ export default function Navbar() {
     setShowSearch(true);
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobile(false);
+        setIsOpen(false);
+        setShowLinks(false);
+        setShowSearch(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen && !showSearch) {
@@ -62,16 +83,18 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className={styles.hamburgerMenuContainer}>
-        <button
-          className={`${styles.hamburgerMenuButton} ${isOpen ? styles.open : ""}`}
-          onClick={toggleMenu}
-        >
-          <span className={styles.hamburgerBar} />
-          <span className={styles.hamburgerBar} />
-          <span className={styles.hamburgerBar} />
-        </button>
-      </div>
+      {isMobile ? (
+        <div className={styles.hamburgerMenuContainer}>
+          <button
+            className={`${styles.hamburgerMenuButton} ${isOpen ? styles.open : ""}`}
+            onClick={toggleMenu}
+          >
+            <span className={styles.hamburgerBar} />
+            <span className={styles.hamburgerBar} />
+            <span className={styles.hamburgerBar} />
+          </button>
+        </div>
+      ) : null}
       <nav className={`${styles.navMenu} ${isOpen ? styles.showMenu : ""}`}>
         <ul
           className={`${styles.navLinks} ${showLinks ? styles.showLinks : ""}`}
