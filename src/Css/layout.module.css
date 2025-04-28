@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
+  }
+}

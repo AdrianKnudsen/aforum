@@ -3,15 +3,14 @@ import styles from "@/Css/aside.module.css";
 
 export default function Aside() {
   return (
-    <div className={styles.aSideContainer}>
+    <aside className={styles.aSideContainer}>
+      <h2>Categories</h2>
       <ul>
-        <li>
-          <p>General</p>
-          <p>Technology</p>
-          <p>Lifestyle and Hobbies</p>
-          <p>Science and Nature</p>
-        </li>
+        <li>General</li>
+        <li>Technology</li>
+        <li>Lifestyle & Hobbies</li>
+        <li>Science & Nature</li>
       </ul>
-    </div>
+    </aside>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { createClient } from "next-sanity";
 import styles from "@/Css/forumSection.module.css";
@@ -33,12 +33,17 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const [showAddPost, setShowAddPost] = useState(false);
   const [postsToShow, setPostsToShow] = useState(2);
 
+  // Fetch posts from Sanity
   const fetchPosts = useCallback(async () => {
-    const result: Post[] = await client.fetch(
-      `*[_type == $category] | order(createdAt desc){title, content, createdAt}`,
-      { category }
-    );
-    setPosts(result);
+    try {
+      const result: Post[] = await client.fetch(
+        `*[_type == $category] | order(createdAt desc){title, content, createdAt}`,
+        { category }
+      );
+      setPosts(result);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   }, [category]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   }, [fetchPosts]);
 
   const handleAddPost = async () => {
-    if (newPostTitle.trim() === "" || newPostContent.trim() === "") return;
+    if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
     await client.create({
       _type: category,
@@ -54,10 +59,10 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
       content: newPostContent,
       createdAt: new Date().toISOString(),
     });
+
     setNewPostTitle("");
     setNewPostContent("");
     setShowAddPost(false);
-
     fetchPosts();
   };
 
@@ -66,13 +71,12 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   };
 
   const handleTogglePosts = () => {
-    setPostsToShow((prevPostsToShow) =>
-      prevPostsToShow === 2 ? posts.length : 2
-    );
+    setPostsToShow((prev) => (prev === 2 ? posts.length : 2));
   };
 
   return (
     <div className={styles.container}>
+      {/* Header */}
       <div className={styles.header}>
         <div className={styles.icon}>
           <Image
@@ -95,14 +99,18 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
           />
         </div>
       </div>
+
+      {/* Divider */}
       <div className={styles.divider}></div>
+
+      {/* Post List */}
       <div className={styles.itemList}>
         {posts.slice(0, postsToShow).map((post, index) => (
           <div
             className={`${styles.item} ${
               selectedPostIndex === index ? styles.selectedItem : ""
             }`}
-            key={index}
+            key={post.title || index}
             onClick={() => handlePostClick(index)}
           >
             <div className={styles.itemHeader}>
@@ -124,11 +132,15 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
       <div className={styles.pagination} onClick={handleTogglePosts}>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
         <div className={styles.dot}></div>
       </div>
+
+      {/* Add Post Form */}
       {showAddPost && (
         <div className={styles.addPostForm}>
           <input
