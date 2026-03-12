@@ -5,6 +5,6 @@ export interface Topic {
 export interface Post {
   title: string;
   content: string;
-  topic: Topic;
+  topic?: Topic;
   createdAt: string;
 }

@@ -9,8 +9,7 @@ import { Post } from "@/types/types";
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
-  useCdn: true,
-  token: process.env.SANITY_API_TOKEN || "",
+  useCdn: false,
   apiVersion: "2024-06-27",
 });
 
@@ -28,7 +27,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(
-    null
+    null,
   );
   const [showAddPost, setShowAddPost] = useState(false);
   const [postsToShow, setPostsToShow] = useState(2);
@@ -38,7 +37,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     try {
       const result: Post[] = await client.fetch(
         `*[_type == $category] | order(createdAt desc){title, content, createdAt}`,
-        { category }
+        { category },
       );
       setPosts(result);
     } catch (error) {
@@ -53,17 +52,29 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const handleAddPost = async () => {
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
-    await client.create({
-      _type: category,
-      title: newPostTitle,
-      content: newPostContent,
-      createdAt: new Date().toISOString(),
+    const createdAt = new Date().toISOString();
+
+    const res = await fetch("/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        _type: category,
+        title: newPostTitle,
+        content: newPostContent,
+        createdAt,
+      }),
     });
+
+    if (res.ok) {
+      setPosts((prev) => [
+        { title: newPostTitle, content: newPostContent, createdAt },
+        ...prev,
+      ]);
+    }
 
     setNewPostTitle("");
     setNewPostContent("");
     setShowAddPost(false);
-    fetchPosts();
   };
 
   const handlePostClick = (index: number) => {

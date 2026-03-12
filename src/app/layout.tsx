@@ -36,15 +36,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${josefinSans.className}`}>
-        <div className={styles.pageWrapper}>
-        {!isStudioRoute && <Navbar />}
-        <div className={styles.layout}>
-          {isWideScreen && <Aside />}{" "}
-          {/* Render Sidebar only on wide screens */}
-          <div className={styles.mainContent}>{children}</div>{" "}
-          {/* Main Content */}
-        </div>
-        </div>
+        {isStudioRoute ? (
+          children
+        ) : (
+          <div className={styles.pageWrapper}>
+            <Navbar />
+            <div className={styles.layout}>
+              {isWideScreen && <Aside />}
+              <div className={styles.mainContent}>{children}</div>
+            </div>
+          </div>
+        )}
       </body>
     </html>
   );
