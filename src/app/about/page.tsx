@@ -1,3 +1,4 @@
+// About page ("/about") — static page describing the purpose and mission of AForum.
 import React from "react";
 import styles from "@/Css/about.module.css";
 

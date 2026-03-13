@@ -1,9 +1,11 @@
+/* Reset */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+/* Base */
 html,
 body {
   background-color: #b3b3b3;

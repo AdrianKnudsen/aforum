@@ -1,3 +1,5 @@
+// ForumSection — reusable component that displays a single forum category.
+// Fetches posts from Sanity, supports creating new posts via the API, and toggles post visibility.
 "use client";
 
 import React, { useState, useCallback, useEffect } from "react";
@@ -6,6 +8,7 @@ import { createClient } from "next-sanity";
 import styles from "@/Css/forumSection.module.css";
 import { Post } from "@/types/types";
 
+// Sanity read client — no write token needed here, reads are public
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
@@ -13,6 +16,7 @@ const client = createClient({
   apiVersion: "2024-06-27",
 });
 
+// Props: category is the Sanity document type; title is the display name shown in the header
 interface ForumSectionProps {
   category:
     | "generalPost"
@@ -49,6 +53,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     fetchPosts();
   }, [fetchPosts]);
 
+  // Submits a new post to the API route, then optimistically prepends it to the local list
   const handleAddPost = async () => {
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
@@ -77,10 +82,12 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     setShowAddPost(false);
   };
 
+  // Toggles the expanded/collapsed state of a post — clicking the same post again collapses it
   const handlePostClick = (index: number) => {
     setSelectedPostIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  // Toggles between showing 2 posts (default) and all posts
   const handleTogglePosts = () => {
     setPostsToShow((prev) => (prev === 2 ? posts.length : 2));
   };

@@ -1,3 +1,5 @@
+/* search.module.css */
+
 .searchInputWrapper {
   display: flex;
   align-items: center;
@@ -28,6 +30,7 @@
   align-items: center;
 }
 
+/* Icon */
 .searchIcon {
   width: 20px;
   height: 20px;
@@ -35,11 +38,13 @@
     brightness(93%) contrast(90%);
 }
 
+/* Icon hover */
 .searchButton:hover .searchIcon {
   filter: invert(61%) sepia(61%) saturate(369%) hue-rotate(39deg)
     brightness(92%) contrast(90%);
 }
 
+/* Desktop */
 @media (min-width: 768px) {
   .searchInput {
     padding: 0;

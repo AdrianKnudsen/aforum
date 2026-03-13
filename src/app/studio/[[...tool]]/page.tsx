@@ -7,6 +7,7 @@
  * https://github.com/sanity-io/next-sanity
  */
 
+// Sanity Studio page ("/studio") — mounts the full Sanity Studio editor using the project config.
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../../sanity.config'
 

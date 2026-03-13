@@ -1,3 +1,4 @@
+// SearchInput — text field with a search icon button, shown inside the Navbar in search mode.
 "use client";
 
 import React from "react";

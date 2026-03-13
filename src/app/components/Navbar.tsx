@@ -1,3 +1,4 @@
+// Navbar component — responsive navigation bar with hamburger menu for mobile and inline links for desktop.
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Opens/closes the mobile menu; also dismisses the search bar if it is open
   const toggleMenu = () => {
     if (showSearch) {
       setShowSearch(false);
@@ -23,18 +25,21 @@ export default function Navbar() {
     }
   };
 
+  // Fully resets all menu and search states (used when navigating or closing)
   const closeMenu = () => {
     setIsOpen(false);
     setShowLinks(false);
     setShowSearch(false);
   };
 
+  // Expands the navbar into search mode when the Search link is clicked
   const handleSearchClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowSearch(true);
     setIsOpen(true);
   };
 
+  // Tracks screen size; resets mobile menu state when switching to desktop width
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -55,6 +60,7 @@ export default function Navbar() {
     };
   }, []);
 
+  // Delays showing nav links until the menu slide-down animation has finished
   useEffect(() => {
     if (isOpen && !showSearch) {
       const timer = setTimeout(() => {

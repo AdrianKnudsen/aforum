@@ -1,3 +1,4 @@
+// ScienceNature — thin wrapper that renders ForumSection for the "Science & Nature" category.
 import React from "react";
 import ForumSection from "./ForumSection";
 

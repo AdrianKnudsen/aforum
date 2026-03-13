@@ -1,3 +1,4 @@
+// Aside — sticky sidebar showing all forum category links. Only rendered on wide screens (768px+).
 import React from "react";
 import Image from "next/image";
 import styles from "@/Css/aside.module.css";

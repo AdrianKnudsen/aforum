@@ -1,3 +1,5 @@
+/* navbar.module.css */
+
 .navContainer {
   display: flex;
   height: 57px;
@@ -17,6 +19,7 @@
     padding 0.3s ease;
 }
 
+/* Search mode */
 .navSearch {
   height: auto;
   padding: 11px 12px;
@@ -39,6 +42,7 @@
   height: 100%;
 }
 
+/* Hamburger */
 .hamburgerMenuContainer {
   height: 2.5rem;
   width: 2.5rem;
@@ -63,6 +67,7 @@
   z-index: 20;
 }
 
+/* Hamburger bars */
 .hamburgerBar {
   display: block;
   width: 24px;
@@ -73,6 +78,7 @@
   transition: all 0.3s ease;
 }
 
+/* Open state (X icon) */
 .open .hamburgerBar:nth-child(1) {
   transform: rotate(45deg) translate(7px, 5.5px);
 }
@@ -91,6 +97,7 @@
   transform: rotate(-45deg) translate(7px, -5.5px);
 }
 
+/* Menu panel */
 .navMenu {
   position: absolute;
   top: 50px;
@@ -131,6 +138,7 @@
   margin: 20px 0;
 }
 
+/* Nav links */
 .navLinks a {
   position: relative;
   color: #fff;
@@ -143,6 +151,7 @@
   -webkit-text-stroke: 1px #3a3a3a;
 }
 
+/* Hover animation */
 .navLinks .outer {
   position: absolute;
   top: 0;
@@ -183,6 +192,7 @@
   margin-left: 1rem;
 }
 
+/* Vertical slide variant */
 [data-animation="to-top"] .outer {
   transform: translateY(100%);
 }
@@ -191,6 +201,7 @@
   transform: translateY(-100%);
 }
 
+/* Animations */
 @keyframes easeIn {
   from {
     opacity: 0;
@@ -224,6 +235,7 @@
   }
 }
 
+/* Desktop */
 @media (min-width: 768px) {
   .hamburgerMenuContainer {
     display: none;

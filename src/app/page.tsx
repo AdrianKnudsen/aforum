@@ -1,3 +1,4 @@
+// Main page (home route "/") — renders all four forum category sections stacked vertically.
 import React from "react";
 import styles from "@/Css/page.module.css";
 import GeneralForum from "./components/GeneralForum";
@@ -13,6 +14,7 @@ export const metadata = {
 export default function MainPage() {
   return (
     <main className={styles.main}>
+      {/* Each section maps to a Sanity document type and renders its posts */}
       <GeneralForum />
       <TechnologyForum />
       <LifestyleHobbies />

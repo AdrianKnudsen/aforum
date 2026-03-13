@@ -1,3 +1,6 @@
+/* layout.module.css */
+
+/* Page wrapper */
 .pageWrapper {
   display: flex;
   flex-direction: column;
@@ -5,6 +8,7 @@
   overflow: hidden;
 }
 
+/* Content row */
 .layout {
   display: flex;
   flex-direction: row;
@@ -12,12 +16,14 @@
   min-height: 0;
 }
 
+/* Main content */
 .mainContent {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
 }
 
+/* Mobile */
 @media (max-width: 767px) {
   .layout {
     flex-direction: column;
