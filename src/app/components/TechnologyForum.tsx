@@ -2,6 +2,6 @@
 import React from "react";
 import ForumSection from "./ForumSection";
 
-export default function technologyForum() {
+export default function TechnologyForum() {
   return <ForumSection category="technologyPost" title="Technology" />;
 }

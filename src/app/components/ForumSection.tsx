@@ -4,17 +4,9 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { createClient } from "next-sanity";
+import { client } from "../../../sanity/lib/client";
 import styles from "@/Css/forumSection.module.css";
 import { Post } from "@/types/types";
-
-// Sanity read client — no write token needed here, reads are public
-const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
-  useCdn: false,
-  apiVersion: "2024-06-27",
-});
 
 // Props: category is the Sanity document type; title is the display name shown in the header
 interface ForumSectionProps {
@@ -57,8 +49,6 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const handleAddPost = async () => {
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
-    const createdAt = new Date().toISOString();
-
     const res = await fetch("/api/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -66,20 +56,16 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         _type: category,
         title: newPostTitle,
         content: newPostContent,
-        createdAt,
       }),
     });
 
     if (res.ok) {
-      setPosts((prev) => [
-        { title: newPostTitle, content: newPostContent, createdAt },
-        ...prev,
-      ]);
+      const created = await res.json();
+      setPosts((prev) => [created, ...prev]);
+      setNewPostTitle("");
+      setNewPostContent("");
+      setShowAddPost(false);
     }
-
-    setNewPostTitle("");
-    setNewPostContent("");
-    setShowAddPost(false);
   };
 
   // Toggles the expanded/collapsed state of a post — clicking the same post again collapses it
@@ -128,7 +114,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
             className={`${styles.item} ${
               selectedPostIndex === index ? styles.selectedItem : ""
             }`}
-            key={post.title || index}
+            key={index}
             onClick={() => handlePostClick(index)}
           >
             <div className={styles.itemHeader}>
@@ -151,12 +137,14 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         ))}
       </div>
 
-      {/* Pagination */}
-      <div className={styles.pagination} onClick={handleTogglePosts}>
-        <div className={styles.dot}></div>
-        <div className={styles.dot}></div>
-        <div className={styles.dot}></div>
-      </div>
+      {/* Pagination — only shown when there are more than 2 posts */}
+      {posts.length > 2 && (
+        <div className={styles.pagination} onClick={handleTogglePosts}>
+          <div className={styles.dot}></div>
+          <div className={styles.dot}></div>
+          <div className={styles.dot}></div>
+        </div>
+      )}
 
       {/* Add Post Form */}
       {showAddPost && (

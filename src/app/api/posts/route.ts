@@ -15,12 +15,15 @@ const client = createClient({
 
 export async function POST(req: NextRequest) {
   try {
-    const { _type, title, content, createdAt } = await req.json();
+    const { _type, title, content } = await req.json();
 
     // Validate that all required fields are present and non-empty
     if (!title?.trim() || !content?.trim() || !_type) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
+
+    // Generate createdAt server-side so clients cannot forge timestamps
+    const createdAt = new Date().toISOString();
 
     // Create the document in Sanity and return it with status 201
     const doc = await client.create({ _type, title, content, createdAt });
