@@ -5,6 +5,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { client } from "../../../sanity/lib/client";
+
 import styles from "@/Css/forumSection.module.css";
 import { Post } from "@/types/types";
 
@@ -94,13 +95,43 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         <div
           className={styles.addButton}
           onClick={() => setShowAddPost(!showAddPost)}
+          aria-label={showAddPost ? "Close form" : "Add post"}
         >
-          <Image
-            src="/svg/AForumIcon3.svg"
-            alt="Aforum add icon"
-            width={30}
-            height={30}
-          />
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#addBtnClip)">
+              <path
+                d="M10.2809 1.11432H1.94759C1.48735 1.11432 1.11426 1.48741 1.11426 1.94765V10.281C1.11426 10.7412 1.48735 11.1143 1.94759 11.1143H10.2809C10.7412 11.1143 11.1143 10.7412 11.1143 10.281V1.94765C11.1143 1.48741 10.7412 1.11432 10.2809 1.11432Z"
+                stroke="#3A3A3A"
+                strokeLinejoin="round"
+              />
+              {/* Horizontal bar — always visible */}
+              <path
+                d="M3.89197 6.11431H8.33641"
+                stroke="#8CB150"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* Vertical bar — fades and slides down when form is open */}
+              <path
+                className={`${styles.verticalBar} ${showAddPost ? styles.verticalBarHidden : ""}`}
+                d="M6.11419 3.89209V8.33653"
+                stroke="#8CB150"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+            <defs>
+              <clipPath id="addBtnClip">
+                <rect width="12" height="12" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
         </div>
       </div>
 

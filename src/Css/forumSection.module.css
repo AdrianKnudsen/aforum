@@ -33,6 +33,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+
+.verticalBar {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.verticalBarHidden {
+  opacity: 0;
+  transform: translateY(3px);
 }
 
 /* Divider */
