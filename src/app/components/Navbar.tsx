@@ -4,10 +4,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 import SearchInput from "./SearchInput";
 import styles from "@/Css/navbar.module.css";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -122,14 +124,25 @@ export default function Navbar() {
                   </span>
                 </a>
               </li>
-              <li data-animation="to-top">
-                <a href="#">
-                  Login
-                  <span className={styles.outer} aria-hidden="true">
-                    <span className={styles.inner}>Login</span>
-                  </span>
-                </a>
-              </li>
+              {session ? (
+                <li data-animation="to-top">
+                  <a href="#" onClick={(e) => { e.preventDefault(); signOut({ callbackUrl: "/" }); closeMenu(); }}>
+                    {session.user.username}
+                    <span className={styles.outer} aria-hidden="true">
+                      <span className={styles.inner}>{session.user.username}</span>
+                    </span>
+                  </a>
+                </li>
+              ) : (
+                <li data-animation="to-top">
+                  <Link href="/login" onClick={closeMenu}>
+                    Login
+                    <span className={styles.outer} aria-hidden="true">
+                      <span className={styles.inner}>Login</span>
+                    </span>
+                  </Link>
+                </li>
+              )}
               <li data-animation="to-top">
                 <Link href="/about" onClick={closeMenu}>
                   About

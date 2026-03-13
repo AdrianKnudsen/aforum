@@ -3,9 +3,11 @@ import generalPostSchema from "./schema/generalPost";
 import technologyPostSchema from "./schema/technologyPost";
 import lifestyleHobbiesPostSchema from "./schema/lifestyleHobbies";
 import scienceNaturePostSchema from "./schema/scienceNature";
+import authorSchema from "./schema/author";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    authorSchema,
     generalPostSchema,
     technologyPostSchema,
     lifestyleHobbiesPostSchema,

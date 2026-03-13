@@ -4,6 +4,8 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { client } from "../../../sanity/lib/client";
 
 import styles from "@/Css/forumSection.module.css";
@@ -20,6 +22,8 @@ interface ForumSectionProps {
 }
 
 export default function ForumSection({ category, title }: ForumSectionProps) {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
@@ -33,7 +37,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const fetchPosts = useCallback(async () => {
     try {
       const result: Post[] = await client.fetch(
-        `*[_type == $category] | order(createdAt desc){title, content, createdAt}`,
+        `*[_type == $category] | order(createdAt desc){title, content, createdAt, author->{ name, role }}`,
         { category },
       );
       setPosts(result);
@@ -45,6 +49,15 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
+
+  // Redirect to login if not authenticated, otherwise toggle the form
+  const handleAddButtonClick = () => {
+    if (!session) {
+      router.push("/login");
+      return;
+    }
+    setShowAddPost(!showAddPost);
+  };
 
   // Submits a new post to the API route, then optimistically prepends it to the local list
   const handleAddPost = async () => {
@@ -94,7 +107,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         <div className={styles.title}>{title}</div>
         <div
           className={styles.addButton}
-          onClick={() => setShowAddPost(!showAddPost)}
+          onClick={handleAddButtonClick}
           aria-label={showAddPost ? "Close form" : "Add post"}
         >
           <svg
@@ -157,7 +170,14 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
                   height={30}
                 />
               </div>
-              <div className={styles.text}>{post.title}</div>
+              <div className={styles.text}>
+                {post.title}
+                {post.author && (
+                  <span className={styles.authorName}>
+                    {post.author.name}
+                  </span>
+                )}
+              </div>
             </div>
             {selectedPostIndex === index && (
               <div className={styles.content}>
@@ -177,8 +197,8 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         </div>
       )}
 
-      {/* Add Post Form */}
-      {showAddPost && (
+      {/* Add Post Form — only shown when logged in */}
+      {showAddPost && session && (
         <div className={styles.addPostForm}>
           <input
             type="text"

@@ -14,6 +14,12 @@ const generalPostSchema = {
       title: "Content",
     },
     {
+      name: "author",
+      type: "reference",
+      title: "Author",
+      to: [{ type: "author" }],
+    },
+    {
       name: "createdAt",
       type: "datetime",
       title: "Created At",
