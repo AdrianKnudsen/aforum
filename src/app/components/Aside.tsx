@@ -8,19 +8,19 @@ export default function Aside() {
       <h2>Categories</h2>
       <ul>
         <li>
-          <Image src="/svg/AForumIcon1.svg" alt="icon" width={20} height={20} />
+          <Image src="/svg/AForumIcon1.svg" alt="icon" width={30} height={30} />
           &nbsp;General
         </li>
         <li>
-          <Image src="/svg/AForumIcon1.svg" alt="icon" width={20} height={20} />
+          <Image src="/svg/AForumIcon1.svg" alt="icon" width={30} height={30} />
           &nbsp;Technology
         </li>
         <li>
-          <Image src="/svg/AForumIcon1.svg" alt="icon" width={20} height={20} />
+          <Image src="/svg/AForumIcon1.svg" alt="icon" width={30} height={30} />
           &nbsp;Lifestyle &amp; Hobbies
         </li>
         <li>
-          <Image src="/svg/AForumIcon1.svg" alt="icon" width={20} height={20} />
+          <Image src="/svg/AForumIcon1.svg" alt="icon" width={30} height={30} />
           &nbsp;Science &amp; Nature
         </li>
       </ul>

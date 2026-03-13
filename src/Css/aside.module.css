@@ -1,9 +1,9 @@
 .aSideContainer {
-  width: 250px;
+  min-width: 19rem;
   height: 100vh;
   background-color: #3a3a3a;
   color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -14,14 +14,15 @@
 }
 
 .aSideContainer h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin: 1rem;
+  text-align: center;
 }
 
 .aSideContainer ul {
   list-style: none;
   margin-left: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .aSideContainer li {
