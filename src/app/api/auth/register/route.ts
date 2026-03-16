@@ -1,8 +1,7 @@
 // API route: POST /api/auth/register
-// Creates a new author document in Sanity with a bcrypt-hashed password.
+// Creates a Sanity author document linked to a Supabase user.
 import { createClient } from "next-sanity";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
@@ -14,31 +13,25 @@ const client = createClient({
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, email, password } = await req.json();
+    const { supabaseId, username, email } = await req.json();
 
-    if (!username?.trim() || !email?.trim() || !password?.trim()) {
+    if (!supabaseId?.trim() || !username?.trim() || !email?.trim()) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    // Check if email is already taken
     const existing = await client.fetch(
       `*[_type == "author" && email == $email][0]{ _id }`,
       { email },
     );
     if (existing) {
-      return NextResponse.json(
-        { error: "Email already registered" },
-        { status: 409 },
-      );
+      return NextResponse.json({ error: "Email already registered" }, { status: 409 });
     }
-
-    const passwordHash = await bcrypt.hash(password, 12);
 
     await client.create({
       _type: "author",
       username,
       email,
-      passwordHash,
+      supabaseId,
       role: "member",
       joinedAt: new Date().toISOString(),
     });

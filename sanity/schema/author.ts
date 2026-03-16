@@ -16,10 +16,9 @@ const authorSchema = {
       validation: (Rule: { required: () => unknown }) => Rule.required(),
     },
     {
-      // Stored as a bcrypt hash — never expose this via public GROQ queries
-      name: "passwordHash",
+      name: "supabaseId",
       type: "string",
-      title: "Password Hash",
+      title: "Supabase User ID",
       hidden: true,
     },
     {

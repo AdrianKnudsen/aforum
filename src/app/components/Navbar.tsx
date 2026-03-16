@@ -4,12 +4,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useAuth } from "@/app/context/AuthContext";
 import SearchInput from "./SearchInput";
 import styles from "@/Css/navbar.module.css";
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -124,12 +124,12 @@ export default function Navbar() {
                   </span>
                 </a>
               </li>
-              {session ? (
+              {user ? (
                 <li data-animation="to-top">
-                  <a href="#" onClick={(e) => { e.preventDefault(); signOut({ callbackUrl: "/" }); closeMenu(); }}>
-                    {session.user.username}
+                  <a href="#" onClick={(e) => { e.preventDefault(); signOut(); closeMenu(); }}>
+                    {user.user_metadata?.username ?? user.email}
                     <span className={styles.outer} aria-hidden="true">
-                      <span className={styles.inner}>{session.user.username}</span>
+                      <span className={styles.inner}>{user.user_metadata?.username ?? user.email}</span>
                     </span>
                   </a>
                 </li>

@@ -4,7 +4,8 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/app/context/AuthContext";
+import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { client } from "../../../sanity/lib/client";
 
@@ -45,7 +46,7 @@ function getInitials(name?: string): string {
 }
 
 export default function ForumSection({ category, title }: ForumSectionProps) {
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPostTitle, setNewPostTitle] = useState("");
@@ -71,7 +72,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   }, [fetchPosts]);
 
   const handleAddButtonClick = () => {
-    if (!session) {
+    if (!user) {
       router.push("/login");
       return;
     }
@@ -81,9 +82,14 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const handleAddPost = async () => {
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
+    const { data: { session } } = await supabase.auth.getSession();
+
     const res = await fetch("/api/posts", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${session?.access_token}`,
+      },
       body: JSON.stringify({
         _type: category,
         title: newPostTitle,
@@ -215,7 +221,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
       )}
 
       {/* Add Post Form */}
-      {showAddPost && session && (
+      {showAddPost && user && (
         <div className={styles.addPostForm}>
           <span className={styles.formLabel}>Title</span>
           <input
