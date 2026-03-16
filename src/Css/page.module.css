@@ -5,3 +5,19 @@
   flex-direction: column;
   margin: 0 auto;
 }
+
+/* Desktop: hide non-selected categories */
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* Mobile: always show all categories */
+@media (max-width: 767px) {
+  .hidden {
+    display: block;
+  }
+}

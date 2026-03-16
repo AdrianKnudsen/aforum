@@ -43,3 +43,7 @@
 .aSideContainer li img {
   align-self: center;
 }
+
+.active {
+  color: #8cb150;
+}
