@@ -195,7 +195,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
             >
               <div className={styles.itemHeader}>
                 <div className={styles.avatar}>
-                  {getInitials(post.author?.name)}
+                  <span style={{ transform: "translateY(0.12em)", display: "block" }}>{getInitials(post.author?.name)}</span>
                 </div>
                 <div className={styles.text}>
                   <span className={styles.postTitle}>{post.title}</span>
