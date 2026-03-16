@@ -31,23 +31,6 @@ AForum is a modern forum application built with Next.js and Sanity.io. Users can
 - **Tiptap** – Rich text editor
 - **CSS Modules** – Scoped component styling
 
-## Environment Variables
-
-Create a `.env.local` file in the project root with the following:
-
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=...
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2024-06-13
-SANITY_API_TOKEN=...
-
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-SUPABASE_SERVICE_ROLE_KEY=...
-```
-
-For Vercel deployments, add the same variables under **Settings → Environment Variables**.
-
 ## Usage
 
 ### Register / Log in

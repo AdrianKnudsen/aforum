@@ -33,12 +33,26 @@ export async function POST(req: NextRequest) {
     }
 
     // Look up the Sanity author linked to this Supabase user
-    const author = await sanity.fetch<{ _id: string; username: string } | null>(
+    let author = await sanity.fetch<{ _id: string; username: string } | null>(
       `*[_type == "author" && supabaseId == $supabaseId][0]{ _id, username }`,
       { supabaseId: user.id },
     );
+
+    // Auto-create author if missing (handles accounts created outside the register flow)
     if (!author) {
-      return NextResponse.json({ error: "Author not found" }, { status: 404 });
+      const username =
+        (user.user_metadata?.username as string | undefined) ||
+        user.email?.split("@")[0] ||
+        "unknown";
+      const created = await sanity.create({
+        _type: "author",
+        username,
+        email: user.email ?? "",
+        supabaseId: user.id,
+        role: "member",
+        joinedAt: new Date().toISOString(),
+      });
+      author = { _id: created._id, username };
     }
 
     const createdAt = new Date().toISOString();

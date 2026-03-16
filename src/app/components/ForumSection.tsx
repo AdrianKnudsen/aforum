@@ -54,6 +54,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(null);
   const [showAddPost, setShowAddPost] = useState(false);
   const [postsToShow, setPostsToShow] = useState(2);
+  const [postError, setPostError] = useState("");
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -80,15 +81,23 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   };
 
   const handleAddPost = async () => {
-    if (!newPostTitle.trim() || !newPostContent.trim()) return;
+    setPostError("");
+    if (!newPostTitle.trim() || !newPostContent.trim()) {
+      setPostError("Title and content are required.");
+      return;
+    }
 
     const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setPostError("Not logged in.");
+      return;
+    }
 
     const res = await fetch("/api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${session?.access_token}`,
+        "Authorization": `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({
         _type: category,
@@ -103,6 +112,9 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
       setNewPostTitle("");
       setNewPostContent("");
       setShowAddPost(false);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      setPostError(data.error || `Server error (${res.status})`);
     }
   };
 
@@ -235,6 +247,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
             content={newPostContent}
             onChange={setNewPostContent}
           />
+          {postError && <p className={styles.formError}>{postError}</p>}
           <button onClick={handleAddPost}>Publish Post</button>
         </div>
       )}
