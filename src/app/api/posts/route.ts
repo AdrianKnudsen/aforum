@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const supabase = createServerSupabase();
     const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+      return NextResponse.json({ error: authError?.message ?? "Not authenticated" }, { status: 401 });
     }
 
     const { _type, title, content } = await req.json();
@@ -70,7 +70,8 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     );
   } catch (error) {
-    console.error("Sanity mutation error:", error);
-    return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Sanity mutation error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

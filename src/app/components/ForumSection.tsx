@@ -59,7 +59,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const fetchPosts = useCallback(async () => {
     try {
       const result: Post[] = await client.fetch(
-        `*[_type == $category] | order(createdAt desc){title, content, createdAt, author->{ name, role }}`,
+        `*[_type == $category] | order(createdAt desc){title, content, createdAt, author->{ "name": username, role }}`,
         { category },
       );
       setPosts(result);
