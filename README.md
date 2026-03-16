@@ -5,55 +5,71 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Environment Variables](#environment-variables)
 - [Usage](#usage)
 - [License](#license)
 
 ## Introduction
 
-AForum is a modern forum application built with Next.js and Sanity.io. It allows users to post topics and content, view different categories like General and Technology, and interact with the content in a seamless and user-friendly interface.
+AForum is a modern forum application built with Next.js and Sanity.io. Users can register, log in, and post rich-text content across different categories.
 
 ## Features
 
-- **Responsive Navbar:** A sticky navbar that remains at the top of the page during scrolling, providing easy navigation.
-- **Dynamic Content:** Fetch and display posts from Sanity.io in different categories.
-- **Interactive Posts:** Expand and collapse post content on click.
-- **Pagination:** Load more posts by clicking pagination dots.
-- **Add New Posts:** Form to add new posts within categories.
+- **Authentication:** Register and log in with email/password via Supabase Auth. Includes forgot password with email reset link.
+- **Responsive layout:** Categories shown in sidebar on desktop; all visible on mobile.
+- **Category navigation:** Click a category in the sidebar to switch between General, Technology, Lifestyle, and Science.
+- **Rich text posts:** Write posts with bold, italic, underline, strikethrough, bullet/numbered lists, and blockquotes via Tiptap editor.
+- **Interactive posts:** Expand and collapse post content on click.
+- **Show more/less:** Load additional posts per category on demand.
+- **Sanity Studio:** Manage content and authors at `/studio`.
 
 ## Technologies Used
 
-- **Next.js:** A React framework for server-side rendering and generating static websites.
-- **Sanity.io:** A headless CMS to manage and store content.
-- **React:** A JavaScript library for building user interfaces.
-- **CSS Modules:** Scoped and modular CSS for styling.
+- **Next.js 14** – App Router, API routes, server-side rendering
+- **Supabase** – Authentication (sign up, sign in, password reset)
+- **Sanity.io** – Headless CMS for posts and author profiles
+- **Tiptap** – Rich text editor
+- **CSS Modules** – Scoped component styling
+
+## Environment Variables
+
+Create a `.env.local` file in the project root with the following:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=...
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2024-06-13
+SANITY_API_TOKEN=...
+
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+```
+
+For Vercel deployments, add the same variables under **Settings → Environment Variables**.
 
 ## Usage
 
-### General Forum
+### Register / Log in
 
-The General Forum displays all posts categorized under "General". Click on a post title to expand or collapse its content.
-
-### Technology Forum
-
-The Technology Forum displays all posts categorized under "Technology". Click on a post title to expand or collapse its content.
-
-### Lifestyle & Hobbies Forum
-
-The Lifestyle & Hobbies Forum displays all posts categorized under "Lifestyle & Hobbies". Click on a post title to expand or collapse its content.
-
-### Science & Nature Forum
-
-The Science & Nature Forum displays all posts categorized under "Science & Nature". Click on a post title to expand or collapse its content.
+1. Click **Logg inn** in the navbar.
+2. Switch to the **Registrer** tab to create a new account (username, email, password).
+3. After registration, log in with your email and password.
+4. Use **Glemt passord** to receive a password reset link by email.
 
 ### Adding a New Post
 
-1. Navigate to the desired category (e.g., General, Technology).
-2. Click on the `+` (add) icon in the navbar.
-3. Fill out the form with a title and content for your new post.
-4. Click the "Add Post" button to submit your post.
+1. Log in.
+2. Click the `+` icon in the navbar to open the post form in the desired category.
+3. Write a title and use the rich text editor for content.
+4. Click **Legg til** to publish the post.
+
+### Navigating Categories
+
+- On desktop, click a category in the left sidebar to switch views.
+- On mobile, all categories are shown simultaneously.
 
 ### Pagination
 
-- By default, only two posts are displayed in each category.
-- Click on the pagination dots at the bottom of the category section to load more posts.
-- The pagination dots will remain visible, allowing you to collapse the extra posts if needed.
+- By default, three posts are shown per category.
+- Click **Show all** to load all posts, or **Show less** to collapse.
