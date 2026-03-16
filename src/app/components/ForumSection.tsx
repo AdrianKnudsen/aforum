@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { client } from "../../../sanity/lib/client";
 
 import styles from "@/Css/forumSection.module.css";
+import editorStyles from "@/Css/richTextEditor.module.css";
+import RichTextEditor from "./RichTextEditor";
 import { Post } from "@/types/types";
 
 interface ForumSectionProps {
@@ -193,7 +195,10 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
                 <span className={styles.expandIcon}>▼</span>
               </div>
               {selectedPostIndex === index && (
-                <div className={styles.content}>{post.content}</div>
+                <div
+                  className={`${styles.content} ${editorStyles.richContent}`}
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
               )}
             </div>
           ))
@@ -220,10 +225,9 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
             placeholder="Post title"
           />
           <span className={styles.formLabel}>Content</span>
-          <textarea
-            value={newPostContent}
-            onChange={(e) => setNewPostContent(e.target.value)}
-            placeholder="Write your post..."
+          <RichTextEditor
+            content={newPostContent}
+            onChange={setNewPostContent}
           />
           <button onClick={handleAddPost}>Publish Post</button>
         </div>
