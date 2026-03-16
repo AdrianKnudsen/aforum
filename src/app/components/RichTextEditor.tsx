@@ -91,7 +91,7 @@ export default function RichTextEditor({
           className={editor.isActive("blockquote") ? styles.active : ""}
           title="Quote"
         >
-          "
+          &ldquo;
         </button>
       </div>
       <EditorContent editor={editor} />
