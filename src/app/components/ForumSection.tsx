@@ -11,7 +11,6 @@ import { client } from "../../../sanity/lib/client";
 import styles from "@/Css/forumSection.module.css";
 import { Post } from "@/types/types";
 
-// Props: category is the Sanity document type; title is the display name shown in the header
 interface ForumSectionProps {
   category:
     | "generalPost"
@@ -21,19 +20,38 @@ interface ForumSectionProps {
   title: string;
 }
 
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 7) return `${diffDays}d ago`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+}
+
+function getInitials(name?: string): string {
+  if (!name) return "?";
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+}
+
 export default function ForumSection({ category, title }: ForumSectionProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
-  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(
-    null,
-  );
+  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(null);
   const [showAddPost, setShowAddPost] = useState(false);
   const [postsToShow, setPostsToShow] = useState(2);
 
-  // Fetch posts from Sanity
   const fetchPosts = useCallback(async () => {
     try {
       const result: Post[] = await client.fetch(
@@ -50,7 +68,6 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     fetchPosts();
   }, [fetchPosts]);
 
-  // Redirect to login if not authenticated, otherwise toggle the form
   const handleAddButtonClick = () => {
     if (!session) {
       router.push("/login");
@@ -59,7 +76,6 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     setShowAddPost(!showAddPost);
   };
 
-  // Submits a new post to the API route, then optimistically prepends it to the local list
   const handleAddPost = async () => {
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
@@ -82,37 +98,37 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     }
   };
 
-  // Toggles the expanded/collapsed state of a post — clicking the same post again collapses it
   const handlePostClick = (index: number) => {
     setSelectedPostIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  // Toggles between showing 2 posts (default) and all posts
   const handleTogglePosts = () => {
     setPostsToShow((prev) => (prev === 2 ? posts.length : 2));
   };
+
+  const visiblePosts = posts.slice(0, postsToShow);
 
   return (
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.icon}>
-          <Image
-            src="/svg/AForumIcon1.svg"
-            alt="Aforum icon"
-            width={30}
-            height={30}
-          />
+          <Image src="/svg/AForumIcon1.svg" alt="Aforum icon" width={42} height={42} />
         </div>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.titleGroup}>
+          <span className={styles.title}>{title}</span>
+          <span className={styles.postCount}>
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </span>
+        </div>
         <div
           className={styles.addButton}
           onClick={handleAddButtonClick}
           aria-label={showAddPost ? "Close form" : "Add post"}
         >
           <svg
-            width="30"
-            height="30"
+            width="28"
+            height="28"
             viewBox="0 0 12 12"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -120,17 +136,15 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
             <g clipPath="url(#addBtnClip)">
               <path
                 d="M10.2809 1.11432H1.94759C1.48735 1.11432 1.11426 1.48741 1.11426 1.94765V10.281C1.11426 10.7412 1.48735 11.1143 1.94759 11.1143H10.2809C10.7412 11.1143 11.1143 10.7412 11.1143 10.281V1.94765C11.1143 1.48741 10.7412 1.11432 10.2809 1.11432Z"
-                stroke="#3A3A3A"
+                stroke="#c5e1a5"
                 strokeLinejoin="round"
               />
-              {/* Horizontal bar — always visible */}
               <path
                 d="M3.89197 6.11431H8.33641"
                 stroke="#8CB150"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              {/* Vertical bar — fades and slides down when form is open */}
               <path
                 className={`${styles.verticalBar} ${showAddPost ? styles.verticalBarHidden : ""}`}
                 d="M6.11419 3.89209V8.33653"
@@ -148,70 +162,70 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
         </div>
       </div>
 
-      {/* Divider */}
-      <div className={styles.divider}></div>
-
       {/* Post List */}
       <div className={styles.itemList}>
-        {posts.slice(0, postsToShow).map((post, index) => (
-          <div
-            className={`${styles.item} ${
-              selectedPostIndex === index ? styles.selectedItem : ""
-            }`}
-            key={index}
-            onClick={() => handlePostClick(index)}
-          >
-            <div className={styles.itemHeader}>
-              <div className={styles.circle}>
-                <Image
-                  src="/svg/AForumIcon2.svg"
-                  alt="Aforum circle icon"
-                  width={30}
-                  height={30}
-                />
+        {posts.length === 0 ? (
+          <div className={styles.emptyState}>No posts yet — be the first!</div>
+        ) : (
+          visiblePosts.map((post, index) => (
+            <div
+              className={`${styles.item} ${selectedPostIndex === index ? styles.selectedItem : ""}`}
+              key={index}
+              onClick={() => handlePostClick(index)}
+            >
+              <div className={styles.itemHeader}>
+                <div className={styles.avatar}>
+                  {getInitials(post.author?.name)}
+                </div>
+                <div className={styles.text}>
+                  <span className={styles.postTitle}>{post.title}</span>
+                  <div className={styles.postMeta}>
+                    {post.author && (
+                      <span className={styles.authorName}>{post.author.name}</span>
+                    )}
+                    {post.createdAt && (
+                      <span className={styles.postDate}>
+                        {formatDate(post.createdAt)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <span className={styles.expandIcon}>▼</span>
               </div>
-              <div className={styles.text}>
-                {post.title}
-                {post.author && (
-                  <span className={styles.authorName}>
-                    {post.author.name}
-                  </span>
-                )}
-              </div>
+              {selectedPostIndex === index && (
+                <div className={styles.content}>{post.content}</div>
+              )}
             </div>
-            {selectedPostIndex === index && (
-              <div className={styles.content}>
-                <p className={styles.topicText}>{post.content}</p>
-              </div>
-            )}
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      {/* Pagination — only shown when there are more than 2 posts */}
+      {/* Show more / less */}
       {posts.length > 2 && (
-        <div className={styles.pagination} onClick={handleTogglePosts}>
-          <div className={styles.dot}></div>
-          <div className={styles.dot}></div>
-          <div className={styles.dot}></div>
+        <div className={styles.pagination}>
+          <button className={styles.showMoreBtn} onClick={handleTogglePosts}>
+            {postsToShow === 2 ? "Show all" : "Show less"}
+          </button>
         </div>
       )}
 
-      {/* Add Post Form — only shown when logged in */}
+      {/* Add Post Form */}
       {showAddPost && session && (
         <div className={styles.addPostForm}>
+          <span className={styles.formLabel}>Title</span>
           <input
             type="text"
             value={newPostTitle}
             onChange={(e) => setNewPostTitle(e.target.value)}
-            placeholder="New post title"
+            placeholder="Post title"
           />
+          <span className={styles.formLabel}>Content</span>
           <textarea
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
-            placeholder="New post content"
+            placeholder="Write your post..."
           />
-          <button onClick={handleAddPost}>Add Post</button>
+          <button onClick={handleAddPost}>Publish Post</button>
         </div>
       )}
     </div>
