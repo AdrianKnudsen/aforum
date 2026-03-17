@@ -55,6 +55,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(null);
   const [showAddPost, setShowAddPost] = useState(false);
   const [postsToShow, setPostsToShow] = useState(2);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [postError, setPostError] = useState("");
 
   const fetchPosts = useCallback(async () => {
@@ -72,6 +73,14 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const handleAddButtonClick = () => {
     if (!user) {
@@ -127,7 +136,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
     setPostsToShow((prev) => (prev === 2 ? posts.length : 2));
   };
 
-  const visiblePosts = posts.slice(0, postsToShow);
+  const visiblePosts = isDesktop ? posts : posts.slice(0, postsToShow);
 
   return (
     <div className={styles.container}>
@@ -225,7 +234,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
       </div>
 
       {/* Show more / less */}
-      {posts.length > 2 && (
+      {!isDesktop && posts.length > 2 && (
         <div className={styles.pagination}>
           <button className={styles.showMoreBtn} onClick={handleTogglePosts}>
             {postsToShow === 2 ? "Show all" : "Show less"}
