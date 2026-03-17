@@ -17,10 +17,8 @@
     "@tiptap/pm": "^3.20.2",
     "@tiptap/react": "^3.20.2",
     "@tiptap/starter-kit": "^3.20.2",
-    "@types/bcryptjs": "^3.0.0",
-    "bcryptjs": "^3.0.3",
+    "dompurify": "^3.2.6",
     "next": "14.2.35",
-    "next-auth": "^4.24.13",
     "next-sanity": "^9.3.10",
     "react": "^18",
     "react-dom": "^18",
@@ -28,6 +26,7 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

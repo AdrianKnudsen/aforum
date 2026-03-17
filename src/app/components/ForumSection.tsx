@@ -2,7 +2,8 @@
 // Fetches posts from Sanity, supports creating new posts via the API, and toggles post visibility.
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
+import DOMPurify from "dompurify";
 import Image from "next/image";
 import { useAuth } from "@/app/context/AuthContext";
 import { supabase } from "@/lib/supabase";
@@ -215,7 +216,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
               {selectedPostIndex === index && (
                 <div
                   className={`${styles.content} ${editorStyles.richContent}`}
-                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
                 />
               )}
             </div>

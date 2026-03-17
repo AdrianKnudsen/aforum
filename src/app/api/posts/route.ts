@@ -4,6 +4,7 @@
 import { createClient } from "next-sanity";
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { rateLimit, getIp } from "@/lib/rateLimit";
 
 const sanity = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
@@ -14,6 +15,14 @@ const sanity = createClient({
 });
 
 export async function POST(req: NextRequest) {
+  const { allowed, retryAfterMs } = rateLimit(getIp(req), 20, 60_000); // 20 innlegg per minutt per IP
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) } },
+    );
+  }
+
   try {
     // Verify Supabase token
     const token = req.headers.get("authorization")?.replace("Bearer ", "");
@@ -24,7 +33,7 @@ export async function POST(req: NextRequest) {
     const supabase = createServerSupabase();
     const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
-      return NextResponse.json({ error: authError?.message ?? "Not authenticated" }, { status: 401 });
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
     const { _type, title, content } = await req.json();
@@ -70,8 +79,7 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("Sanity mutation error:", message);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Sanity mutation error:", error instanceof Error ? error.message : String(error));
+    return NextResponse.json({ error: "An error occurred. Please try again." }, { status: 500 });
   }
 }
