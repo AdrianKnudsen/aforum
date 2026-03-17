@@ -20,6 +20,11 @@ const generalPostSchema = {
       to: [{ type: "author" }],
     },
     {
+      name: "subcategory",
+      type: "string",
+      title: "Subcategory",
+    },
+    {
       name: "createdAt",
       type: "datetime",
       title: "Created At",

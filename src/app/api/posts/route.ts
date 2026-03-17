@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
-    const { _type, title, content } = await req.json();
-    if (!title?.trim() || !content?.trim() || !_type) {
+    const { _type, title, content, subcategory } = await req.json();
+    if (!title?.trim() || !content?.trim() || !_type || !subcategory?.trim()) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
       _type,
       title,
       content,
+      subcategory,
       createdAt,
       author: { _type: "reference", _ref: author._id },
     });

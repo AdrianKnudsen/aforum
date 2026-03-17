@@ -1,8 +1,8 @@
-// ForumSection — reusable component that displays a single forum category.
-// Fetches posts from Sanity, supports creating new posts via the API, and toggles post visibility.
+// ForumSection — reusable component that displays a single forum subcategory.
+// Fetches posts from Sanity filtered by _type and subcategory, supports creating new posts.
 "use client";
 
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import DOMPurify from "dompurify";
 import Image from "next/image";
 import { useAuth } from "@/app/context/AuthContext";
@@ -21,6 +21,7 @@ interface ForumSectionProps {
     | "technologyPost"
     | "lifestyleHobbiesPost"
     | "scienceNaturePost";
+  subcategory: string;
   title: string;
 }
 
@@ -46,7 +47,7 @@ function getInitials(name?: string): string {
     .toUpperCase();
 }
 
-export default function ForumSection({ category, title }: ForumSectionProps) {
+export default function ForumSection({ category, subcategory, title }: ForumSectionProps) {
   const { user } = useAuth();
   const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -61,14 +62,14 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
   const fetchPosts = useCallback(async () => {
     try {
       const result: Post[] = await client.fetch(
-        `*[_type == $category] | order(createdAt desc){title, content, createdAt, author->{ "name": username, role }}`,
-        { category },
+        `*[_type == $category && subcategory == $subcategory] | order(createdAt desc){title, content, createdAt, author->{ "name": username, role }}`,
+        { category, subcategory },
       );
       setPosts(result);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
-  }, [category]);
+  }, [category, subcategory]);
 
   useEffect(() => {
     fetchPosts();
@@ -111,6 +112,7 @@ export default function ForumSection({ category, title }: ForumSectionProps) {
       },
       body: JSON.stringify({
         _type: category,
+        subcategory,
         title: newPostTitle,
         content: newPostContent,
       }),
