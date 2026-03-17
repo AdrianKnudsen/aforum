@@ -14,13 +14,16 @@ export default function MainPage() {
 
   return (
     <main className={styles.main}>
-      {/* Desktop: show only the selected subcategory */}
+      {/* Desktop: show all subcategories of the selected category */}
       <div className={styles.desktopView}>
-        <ForumSection
-          category={cat.sanityType}
-          subcategory={selectedSubcategory}
-          title={sub?.label ?? selectedSubcategory}
-        />
+        {cat.subcategories.map((subDef) => (
+          <ForumSection
+            key={subDef.value}
+            category={cat.sanityType}
+            subcategory={subDef.value}
+            title={subDef.label}
+          />
+        ))}
       </div>
 
       {/* Mobile: show all categories and subcategories stacked */}

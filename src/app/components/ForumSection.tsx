@@ -20,7 +20,10 @@ interface ForumSectionProps {
     | "generalPost"
     | "technologyPost"
     | "lifestyleHobbiesPost"
-    | "scienceNaturePost";
+    | "scienceNaturePost"
+    | "sportsPost"
+    | "entertainmentPost"
+    | "businessPost";
   subcategory: string;
   title: string;
 }
