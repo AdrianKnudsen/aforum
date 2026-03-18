@@ -9,29 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sanity/client": "^6.20.0",
+    "@sanity/client": "^6.23.0",
     "@sanity/image-url": "^1.0.2",
-    "@sanity/vision": "^3.46.0",
+    "@sanity/vision": "^3.62.0",
     "@supabase/supabase-js": "^2.99.1",
     "@tiptap/extension-underline": "^3.20.2",
     "@tiptap/pm": "^3.20.2",
     "@tiptap/react": "^3.20.2",
     "@tiptap/starter-kit": "^3.20.2",
     "dompurify": "^3.2.6",
-    "next": "14.2.35",
-    "next-sanity": "^9.3.10",
-    "react": "^18",
-    "react-dom": "^18",
-    "sanity": "^3.46.0",
+    "next": "15.5.13",
+    "next-sanity": "^9.8.20",
+    "react": "^19",
+    "react-dom": "^19",
+    "sanity": "^3.62.0",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "eslint": "^8",
-    "eslint-config-next": "14.2.35",
+    "eslint-config-next": "15.5.13",
     "typescript": "^5"
   }
 }
