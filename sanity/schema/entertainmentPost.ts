@@ -1,7 +1,7 @@
-const technologyPostSchema = {
-  name: "technologyPost",
+const entertainmentPostSchema = {
+  name: "entertainmentPost",
   type: "document",
-  title: "Technology",
+  title: "Entertainment",
   fields: [
     {
       name: "title",
@@ -25,14 +25,12 @@ const technologyPostSchema = {
       title: "Subcategory",
       options: {
         list: [
-          { value: "programming", title: "Programming" },
-          { value: "gaming", title: "Gaming" },
-          { value: "ai", title: "AI & Machine Learning" },
-          { value: "hardware", title: "Hardware" },
-          { value: "webdev", title: "Web Development" },
-          { value: "cybersecurity", title: "Cybersecurity" },
-          { value: "mobile", title: "Mobile & Apps" },
-          { value: "opensource", title: "Open Source" },
+          { value: "movies", title: "Movies & Film" },
+          { value: "tv-shows", title: "TV Shows & Series" },
+          { value: "anime", title: "Anime & Manga" },
+          { value: "comics", title: "Comics & Graphic Novels" },
+          { value: "podcasts", title: "Podcasts" },
+          { value: "celebrities", title: "Celebrities" },
         ],
       },
     },
@@ -50,4 +48,4 @@ const technologyPostSchema = {
   ],
 };
 
-export default technologyPostSchema;
+export default entertainmentPostSchema;

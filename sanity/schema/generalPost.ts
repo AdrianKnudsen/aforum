@@ -23,6 +23,17 @@ const generalPostSchema = {
       name: "subcategory",
       type: "string",
       title: "Subcategory",
+      options: {
+        list: [
+          { value: "introductions", title: "Introductions" },
+          { value: "off-topic", title: "Off-topic" },
+          { value: "random", title: "Random" },
+          { value: "announcements", title: "Announcements" },
+          { value: "help", title: "Help & Support" },
+          { value: "feedback", title: "Feedback" },
+          { value: "news", title: "News & Updates" },
+        ],
+      },
     },
     {
       name: "createdAt",

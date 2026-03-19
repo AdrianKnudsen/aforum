@@ -23,6 +23,17 @@ const scienceNaturePostSchema = {
       name: "subcategory",
       type: "string",
       title: "Subcategory",
+      options: {
+        list: [
+          { value: "space", title: "Space & Astronomy" },
+          { value: "environment", title: "Environment" },
+          { value: "biology", title: "Biology" },
+          { value: "physics", title: "Physics" },
+          { value: "nature", title: "Nature & Wildlife" },
+          { value: "chemistry", title: "Chemistry" },
+          { value: "medicine", title: "Medicine & Health" },
+        ],
+      },
     },
     {
       name: "createdAt",

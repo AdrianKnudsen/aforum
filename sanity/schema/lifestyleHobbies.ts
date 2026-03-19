@@ -23,6 +23,18 @@ const lifestyleHobbiesPostSchema = {
       name: "subcategory",
       type: "string",
       title: "Subcategory",
+      options: {
+        list: [
+          { value: "fitness", title: "Fitness & Health" },
+          { value: "food", title: "Food & Cooking" },
+          { value: "travel", title: "Travel" },
+          { value: "music", title: "Music" },
+          { value: "art", title: "Art & Design" },
+          { value: "photography", title: "Photography" },
+          { value: "books", title: "Books & Reading" },
+          { value: "diy", title: "DIY & Crafts" },
+        ],
+      },
     },
     {
       name: "createdAt",
