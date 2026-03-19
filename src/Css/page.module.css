@@ -28,18 +28,17 @@
 
 /* Mobile category block: groups a main category header + its subcategory sections */
 .mobileCategoryBlock {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .mobileCategoryHeader {
-  background-color: #2a2a2a;
+  background-color: #8cb150;
   color: #ffffff;
-  padding: 0.8rem 1.25rem;
-  font-size: 0.85rem;
+  padding: 1rem 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  border-left: 4px solid #8cb150;
-  border-radius: 5px 5px 0 0;
+  border-radius: 8px 8px 0 0;
   margin-bottom: 0.5rem;
 }
