@@ -9,6 +9,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schema";
+import { deskStructure } from "./sanity/deskStructure";
 
 export default defineConfig({
   basePath: "/studio",
@@ -16,5 +17,8 @@ export default defineConfig({
   dataset,
   // Add and edit the content schema in the './sanity/schema' folder
   schema,
-  plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
+  plugins: [
+    structureTool({ structure: deskStructure }),
+    visionTool({ defaultApiVersion: apiVersion }),
+  ],
 });
