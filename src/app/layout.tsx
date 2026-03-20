@@ -6,6 +6,7 @@ import { Inter, Josefin_Sans } from "next/font/google";
 import "../Css/globals.css";
 import Navbar from "./components/Navbar";
 import Aside from "./components/Aside";
+import BackgroundBlobs from "./components/BackgroundBlobs";
 import AuthProvider from "./components/AuthProvider";
 import { CategoryProvider } from "./context/CategoryContext";
 import { usePathname } from "next/navigation";
@@ -43,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${josefinSans.className}`}>
+        <BackgroundBlobs />
         <AuthProvider>
           {isStudioRoute ? (
             children

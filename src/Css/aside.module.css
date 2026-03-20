@@ -1,7 +1,8 @@
 /* aside.module.css */
 
 .aSideContainer {
-  min-width: 22rem;
+  width: 22rem;
+  flex-shrink: 0;
   height: 100vh;
   background-color: var(--clr-dark);
   color: var(--clr-text-white);
@@ -18,7 +19,7 @@
 }
 
 .aSideContainer h2 {
-  font-size: 2.5rem;
+  font-size: var(--fs-2xl);
   margin: 1rem 1rem 0.75rem 1rem;
   text-align: center;
 }
@@ -52,15 +53,28 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1.6rem;
+  font-size: var(--fs-lg);
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
-  border-left: 3px solid transparent;
+  position: relative;
   cursor: pointer;
   transition:
     color var(--ease-fast),
-    background-color var(--ease-fast),
-    border-left-color var(--ease-fast);
+    background-color var(--ease-fast);
+}
+
+/* Dot indicator */
+.mainCategory::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  width: 5px;
+  height: 5px;
+  background: var(--clr-accent);
+  border-radius: 50%;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .mainCategory:hover {
@@ -75,13 +89,21 @@
 .active {
   color: var(--clr-accent);
   background-color: var(--clr-accent-bg);
-  border-left-color: var(--clr-accent);
-  padding-left: calc(1rem - 3px);
+}
+
+.active::before {
+  transform: translateY(-50%) scale(1);
+  animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(140, 177, 80, 0.6); }
+  50%       { box-shadow: 0 0 0 5px rgba(140, 177, 80, 0); }
 }
 
 /* ─── Chevron ────────────────────────────────────────────────────────────── */
 .chevron {
-  font-size: 1.1rem;
+  font-size: var(--fs-sm);
   color: var(--clr-text-strike);
   transition: transform var(--ease-base);
   display: inline-block;
@@ -106,7 +128,7 @@
 }
 
 .subItem {
-  font-size: 1rem;
+  font-size: var(--fs-sm);
   padding: 0.4rem 0.6rem;
   border-radius: var(--radius-xs);
   cursor: pointer;

@@ -37,7 +37,7 @@
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: var(--fs-md);
   font-weight: 700;
   color: var(--clr-text-white);
   letter-spacing: 0.06em;
@@ -45,7 +45,7 @@
 }
 
 .postCount {
-  font-size: 0.78rem;
+  font-size: var(--fs-2xs);
   color: var(--clr-accent-light);
   letter-spacing: 0.03em;
   margin-top: 0.2rem;
@@ -135,7 +135,7 @@
   border-radius: var(--radius-full);
   background-color: var(--clr-dark);
   color: var(--clr-accent-light);
-  font-size: 1.9rem;
+  font-size: var(--fs-xl);
   font-weight: 700;
   line-height: 1;
   flex-shrink: 0;
@@ -151,7 +151,7 @@
 }
 
 .postTitle {
-  font-size: 1.05rem;
+  font-size: var(--fs-base);
   font-weight: 600;
   color: var(--clr-text);
   white-space: nowrap;
@@ -168,13 +168,13 @@
 }
 
 .authorName {
-  font-size: 0.82rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--clr-text-accent);
 }
 
 .postDate {
-  font-size: 0.78rem;
+  font-size: var(--fs-2xs);
   color: var(--clr-text-faint);
 }
 
@@ -185,7 +185,7 @@
 
 .expandIcon {
   color: var(--clr-text-placeholder);
-  font-size: 0.75rem;
+  font-size: var(--fs-2xs);
   margin-left: 0.75rem;
   transition: transform var(--ease-base);
   flex-shrink: 0;
@@ -200,7 +200,7 @@
   width: 100%;
   padding: 1.1rem 1.25rem 1.25rem 1.25rem;
   border-top: 1px solid var(--clr-border-post);
-  font-size: 1rem;
+  font-size: var(--fs-base);
   color: var(--clr-dark);
   line-height: 1.75;
   background-color: var(--clr-bg-content);
@@ -215,7 +215,7 @@
 }
 
 .showMoreBtn {
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   color: var(--clr-accent);
   letter-spacing: 0.07em;
@@ -252,12 +252,12 @@
 
 .formError {
   color: var(--clr-text-error);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   margin: 0;
 }
 
 .formLabel {
-  font-size: 0.75rem;
+  font-size: var(--fs-2xs);
   font-weight: 700;
   color: var(--clr-text-muted);
   letter-spacing: 0.07em;
@@ -269,7 +269,7 @@
   padding: 0.75rem 0.9rem;
   border: 1.5px solid var(--clr-border-light);
   border-radius: var(--radius-xs);
-  font-size: 0.98rem;
+  font-size: var(--fs-base);
   font-family: var(--font);
   background-color: var(--clr-bg-card);
   color: var(--clr-text-body);
@@ -291,7 +291,7 @@
 }
 
 .addPostForm button {
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -314,7 +314,7 @@
   text-align: center;
   padding: 2rem 1rem;
   color: var(--clr-text-placeholder);
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   letter-spacing: 0.03em;
 }
 

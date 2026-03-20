@@ -59,6 +59,20 @@
   /* Typography */
   --font: "Josefin Sans", sans-serif;
 
+  /* Font scale — clamp(min, fluid, max)
+     Adjust these to tune sizing across all resolutions at once. */
+  --fs-2xs:        clamp(0.7rem,  0.3vw  + 0.4rem,  0.95rem); /* tiny labels, icons */
+  --fs-xs:         clamp(0.78rem, 0.35vw + 0.45rem, 1.05rem); /* dates, meta, counts */
+  --fs-sm:         clamp(0.85rem, 0.4vw  + 0.45rem, 1.15rem); /* secondary text, descriptions */
+  --fs-base:       clamp(0.95rem, 0.5vw  + 0.45rem, 1.3rem);  /* body, inputs, post text */
+  --fs-md:         clamp(1rem,    0.6vw  + 0.5rem,  1.5rem);  /* medium emphasis, taglines */
+  --fs-lg:         clamp(1.1rem,  0.4vw  + 0.9rem,  1.5rem);  /* sidebar categories */
+  --fs-xl:         clamp(1.4rem,  0.8vw  + 0.8rem,  2.2rem);  /* avatars, icons */
+  --fs-2xl:        clamp(1.6rem,  1vw    + 1rem,    2.4rem);  /* sidebar h2, section headings */
+  --fs-3xl:        clamp(1.8rem,  1.5vw  + 1rem,    3.2rem);  /* page headings */
+  --fs-nav:        clamp(15px,    0.8vw  + 9px,     22px);    /* desktop nav links */
+  --fs-nav-mobile: clamp(20px,    4vw,               32px);   /* mobile nav links */
+
   /* Border radius */
   --radius-xs:   0.3rem;
   --radius-sm:   0.375rem;
@@ -76,8 +90,12 @@
 }
 
 /* Base */
-html,
-body {
+html {
   background-color: var(--clr-bg-page);
   height: 100vh;
+}
+
+body {
+  height: 100vh;
+  /* No background here — keeps body transparent so the canvas shows through */
 }
