@@ -184,7 +184,7 @@
 }
 
 .expandIcon {
-  color: var(--clr-text-placeholder);
+  color: var(--clr-text-faint);
   font-size: var(--fs-2xs);
   margin-left: 0.75rem;
   transition: transform var(--ease-base);
@@ -203,7 +203,7 @@
   font-size: var(--fs-base);
   color: var(--clr-dark);
   line-height: 1.75;
-  background-color: var(--clr-bg-content);
+  background-color: var(--clr-bg-subtle);
 }
 
 /* ─── Pagination ─────────────────────────────────────────────────────────── */
@@ -245,7 +245,7 @@
   gap: 0.6rem;
   margin: 0 1.1rem 1.1rem;
   padding: 1.25rem;
-  background-color: var(--clr-bg-lighter);
+  background-color: var(--clr-bg-subtle);
   border: 1px solid var(--clr-border-form);
   border-radius: 0.6rem;
 }
@@ -313,7 +313,7 @@
 .emptyState {
   text-align: center;
   padding: 2rem 1rem;
-  color: var(--clr-text-placeholder);
+  color: var(--clr-text-faint);
   font-size: var(--fs-sm);
   letter-spacing: 0.03em;
 }

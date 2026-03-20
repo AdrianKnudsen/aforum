@@ -77,7 +77,7 @@
 
 .editorArea:empty::before {
   content: attr(data-placeholder);
-  color: var(--clr-text-placeholder);
+  color: var(--clr-text-faint);
   pointer-events: none;
 }
 
@@ -110,7 +110,7 @@
 .editorArea s,
 .richContent s {
   text-decoration: line-through;
-  color: var(--clr-text-strike);
+  color: var(--clr-text-muted);
 }
 
 .editorArea ul,
@@ -137,7 +137,7 @@
   border-left: 3px solid var(--clr-accent-light);
   padding-left: 0.9rem;
   margin: 0.5em 0;
-  color: var(--clr-text-quote);
+  color: var(--clr-text-subtle);
   font-style: italic;
 }
 

@@ -205,7 +205,7 @@
 /* ─── Footer note ────────────────────────────────────────────────────────── */
 .footer p {
   font-size: var(--fs-sm);
-  color: var(--clr-text-strike);
+  color: var(--clr-text-muted);
   line-height: 1.65;
 }
 

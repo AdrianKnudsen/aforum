@@ -104,7 +104,7 @@
 /* ─── Chevron ────────────────────────────────────────────────────────────── */
 .chevron {
   font-size: var(--fs-sm);
-  color: var(--clr-text-strike);
+  color: var(--clr-text-muted);
   transition: transform var(--ease-base);
   display: inline-block;
   line-height: 1;

@@ -20,25 +20,18 @@
   /* Surface */
   --clr-bg-page:       #b3b3b3;
   --clr-bg-card:       #ffffff;
-  --clr-bg-subtle:     #f9f9f9;
-  --clr-bg-lighter:    #f7f7f7;
+  --clr-bg-subtle:     #f7f7f7;
   --clr-bg-toolbar:    #f2f2f2;
-  --clr-bg-content:    #fafdfa;
   --clr-bg-info:       #f0f9e8;
   --clr-bg-search:     #e0dddd;
 
   /* Text */
-  --clr-text:          #1e1e1e;
   --clr-text-body:     #2a2a2a;
-  --clr-text-muted:    #777;
+  --clr-text-subtle:   #666;
+  --clr-text-muted:    #888;
   --clr-text-faint:    #aaa;
-  --clr-text-placeholder: #bbb;
   --clr-text-sub:      #ccc;
-  --clr-text-subtle:   #555;
-  --clr-text-strike:   #888;
-  --clr-text-quote:    #666;
   --clr-text-white:    #ffffff;
-  --clr-text-on-dark:  #c5e1a5;
   --clr-text-accent:   #8cb150;
   --clr-text-info:     #3a7a1a;
   --clr-text-error:    #c0392b;
