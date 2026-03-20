@@ -1,26 +1,28 @@
 /* richTextEditor.module.css */
 
 .wrapper {
-  border: 1.5px solid #ddd;
-  border-radius: 0.4rem;
-  background-color: #ffffff;
+  border: 1.5px solid var(--clr-border-light);
+  border-radius: var(--radius-xs);
+  background-color: var(--clr-bg-card);
   overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color var(--ease-base),
+    box-shadow var(--ease-base);
 }
 
 .wrapper:focus-within {
-  border-color: #8cb150;
-  box-shadow: 0 0 0 3px rgba(140, 177, 80, 0.12);
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px var(--clr-accent-focus);
 }
 
-/* Toolbar */
+/* ─── Toolbar ─────────────────────────────────────────────────────────────── */
 .toolbar {
   display: flex;
   align-items: center;
   gap: 0.15rem;
   padding: 0.45rem 0.6rem;
-  background-color: #f2f2f2;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: var(--clr-bg-toolbar);
+  border-bottom: 1px solid var(--clr-border-muted);
   flex-wrap: wrap;
 }
 
@@ -33,50 +35,53 @@
   padding: 0 0.4rem;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 0.3rem;
+  border-radius: var(--radius-xs);
   cursor: pointer;
   font-size: 0.9rem;
-  font-family: "Josefin Sans", sans-serif;
-  color: #444;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  font-family: var(--font);
+  color: var(--clr-text-body);
+  transition:
+    background-color var(--ease-fast),
+    border-color var(--ease-fast),
+    color var(--ease-fast);
 }
 
 .toolbar button:hover {
-  background-color: #e4e4e4;
-  border-color: #ccc;
+  background-color: var(--clr-border);
+  border-color: var(--clr-border-muted);
 }
 
 .toolbar button.active {
-  background-color: #3a3a3a;
-  color: #c5e1a5;
-  border-color: #3a3a3a;
+  background-color: var(--clr-dark);
+  color: var(--clr-accent-light);
+  border-color: var(--clr-dark);
 }
 
 .divider {
   width: 1px;
   height: 1.4rem;
-  background-color: #d0d0d0;
+  background-color: var(--clr-border-muted);
   margin: 0 0.25rem;
 }
 
-/* Editor content area */
+/* ─── Editor content area ────────────────────────────────────────────────── */
 .editorArea {
   min-height: 7rem;
   padding: 0.75rem 0.9rem;
   font-size: 0.97rem;
-  font-family: "Josefin Sans", sans-serif;
-  color: #2a2a2a;
+  font-family: var(--font);
+  color: var(--clr-text-body);
   line-height: 1.65;
   outline: none;
 }
 
 .editorArea:empty::before {
   content: attr(data-placeholder);
-  color: #bbb;
+  color: var(--clr-text-placeholder);
   pointer-events: none;
 }
 
-/* Rich text output styles — applied both in editor and when rendering post content */
+/* ─── Rich text output styles ────────────────────────────────────────────── */
 .editorArea p,
 .richContent p {
   margin: 0 0 0.5em;
@@ -105,7 +110,7 @@
 .editorArea s,
 .richContent s {
   text-decoration: line-through;
-  color: #888;
+  color: var(--clr-text-strike);
 }
 
 .editorArea ul,
@@ -129,16 +134,16 @@
 
 .editorArea blockquote,
 .richContent blockquote {
-  border-left: 3px solid #c5e1a5;
+  border-left: 3px solid var(--clr-accent-light);
   padding-left: 0.9rem;
   margin: 0.5em 0;
-  color: #666;
+  color: var(--clr-text-quote);
   font-style: italic;
 }
 
-/* Standalone rich content (used when rendering saved HTML in post view) */
+/* ─── Standalone rich content ────────────────────────────────────────────── */
 .richContent {
   font-size: 1rem;
   line-height: 1.75;
-  color: #3a3a3a;
+  color: var(--clr-dark);
 }

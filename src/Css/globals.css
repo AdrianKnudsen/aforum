@@ -5,9 +5,79 @@
   margin: 0;
 }
 
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --clr-dark:          #3a3a3a;
+  --clr-dark-deep:     #2e2e2e;
+  --clr-accent:        #8cb150;
+  --clr-accent-dim:    #7a9e42;
+  --clr-accent-light:  #c5e1a5;
+  --clr-accent-bg:     rgba(140, 177, 80, 0.10);
+  --clr-accent-glow:   rgba(140, 177, 80, 0.18);
+  --clr-accent-focus:  rgba(140, 177, 80, 0.12);
+
+  /* Surface */
+  --clr-bg-page:       #b3b3b3;
+  --clr-bg-card:       #ffffff;
+  --clr-bg-subtle:     #f9f9f9;
+  --clr-bg-lighter:    #f7f7f7;
+  --clr-bg-toolbar:    #f2f2f2;
+  --clr-bg-content:    #fafdfa;
+  --clr-bg-info:       #f0f9e8;
+  --clr-bg-search:     #e0dddd;
+
+  /* Text */
+  --clr-text:          #1e1e1e;
+  --clr-text-body:     #2a2a2a;
+  --clr-text-muted:    #777;
+  --clr-text-faint:    #aaa;
+  --clr-text-placeholder: #bbb;
+  --clr-text-sub:      #ccc;
+  --clr-text-subtle:   #555;
+  --clr-text-strike:   #888;
+  --clr-text-quote:    #666;
+  --clr-text-white:    #ffffff;
+  --clr-text-on-dark:  #c5e1a5;
+  --clr-text-accent:   #8cb150;
+  --clr-text-info:     #3a7a1a;
+  --clr-text-error:    #c0392b;
+
+  /* Border */
+  --clr-border:        #e4e4e4;
+  --clr-border-light:  #ddd;
+  --clr-border-muted:  #d0d0d0;
+  --clr-border-accent: #c5e1a5;
+  --clr-border-post:   #d6e8bb;
+  --clr-border-form:   #dde8cc;
+
+  /* Overlays */
+  --clr-overlay-light:   rgba(255, 255, 255, 0.06);
+  --clr-overlay-lighter: rgba(255, 255, 255, 0.07);
+  --clr-overlay-divider: rgba(255, 255, 255, 0.09);
+
+  /* Typography */
+  --font: "Josefin Sans", sans-serif;
+
+  /* Border radius */
+  --radius-xs:   0.3rem;
+  --radius-sm:   0.375rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.625rem;
+  --radius-xl:   5px;
+  --radius-pill: 2rem;
+  --radius-full: 50%;
+
+  /* Transitions */
+  --ease-fast:  0.15s ease;
+  --ease-base:  0.2s ease;
+  --ease-slow:  0.3s ease;
+  --ease-xslow: 0.5s ease;
+}
+
 /* Base */
 html,
 body {
-  background-color: #b3b3b3;
+  background-color: var(--clr-bg-page);
   height: 100vh;
 }

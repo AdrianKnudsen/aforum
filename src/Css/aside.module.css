@@ -3,15 +3,15 @@
 .aSideContainer {
   min-width: 22rem;
   height: 100vh;
-  background-color: #3a3a3a;
-  color: white;
+  background-color: var(--clr-dark);
+  color: var(--clr-text-white);
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-left: 10px;
   margin-top: 1rem;
-  border-radius: 5px;
+  border-radius: var(--radius-xl);
   position: sticky;
   position: -webkit-sticky;
   overflow-y: auto;
@@ -29,32 +29,43 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0;
 }
 
-/* Main category group wrapper */
+/* ─── Category group ─────────────────────────────────────────────────────── */
 .categoryGroup {
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid var(--clr-overlay-divider);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
-/* Main category row */
+.categoryGroup:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* ─── Main category row ──────────────────────────────────────────────────── */
 .mainCategory {
   display: flex;
   align-items: center;
   gap: 1rem;
   font-size: 1.6rem;
   padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
   cursor: pointer;
   transition:
-    color 0.15s ease,
-    background-color 0.15s ease;
+    color var(--ease-fast),
+    background-color var(--ease-fast),
+    border-left-color var(--ease-fast);
 }
 
 .mainCategory:hover {
-  color: #8cb150;
-  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--clr-accent);
+  background-color: var(--clr-overlay-light);
 }
 
 .mainCategory span:first-of-type {
@@ -62,51 +73,55 @@
 }
 
 .active {
-  color: #8cb150;
-  background-color: rgba(140, 177, 80, 0.1);
+  color: var(--clr-accent);
+  background-color: var(--clr-accent-bg);
+  border-left-color: var(--clr-accent);
+  padding-left: calc(1rem - 3px);
 }
 
-/* Chevron indicator */
+/* ─── Chevron ────────────────────────────────────────────────────────────── */
 .chevron {
   font-size: 1.1rem;
-  color: #888;
-  transition: transform 0.2s ease;
+  color: var(--clr-text-strike);
+  transition: transform var(--ease-base);
   display: inline-block;
   line-height: 1;
 }
 
 .chevronOpen {
   transform: rotate(90deg);
-  color: #8cb150;
+  color: var(--clr-accent);
 }
 
-/* Subcategory list */
+/* ─── Subcategory list ───────────────────────────────────────────────────── */
 .subList {
   list-style: none;
-  padding: 0.2rem 0 0.4rem 2.75rem;
+  padding: 0.2rem 0 0.5rem 3rem;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  border-left: 1px solid var(--clr-overlay-divider);
+  margin-left: 1.5rem;
 }
 
 .subItem {
   font-size: 1rem;
   padding: 0.4rem 0.6rem;
-  border-radius: 0.3rem;
+  border-radius: var(--radius-xs);
   cursor: pointer;
-  color: #ccc;
+  color: var(--clr-text-sub);
   transition:
-    color 0.15s ease,
-    background-color 0.15s ease;
+    color var(--ease-fast),
+    background-color var(--ease-fast);
 }
 
 .subItem:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.07);
+  color: var(--clr-text-white);
+  background-color: var(--clr-overlay-lighter);
 }
 
 .subActive {
-  color: #8cb150;
+  color: var(--clr-accent);
   font-weight: 600;
 }

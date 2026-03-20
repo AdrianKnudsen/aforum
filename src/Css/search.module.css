@@ -3,9 +3,9 @@
 .searchInputWrapper {
   display: flex;
   align-items: center;
-  background-color: #e0dddd;
-  border: 3px solid #8cb150;
-  border-radius: 30px;
+  background-color: var(--clr-bg-search);
+  border: 3px solid var(--clr-accent);
+  border-radius: var(--radius-pill);
   padding: 5px 10px;
   width: 100%;
   max-width: 600px;
@@ -17,7 +17,7 @@
   outline: none;
   background: none;
   font-size: 16px;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: var(--font);
   padding: 5px;
 }
 

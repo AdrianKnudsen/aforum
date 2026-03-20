@@ -32,15 +32,22 @@
 }
 
 .mobileCategoryHeader {
-  background-color: #8cb150;
-  color: #ffffff;
-  border: 0.35rem solid #3a3a3a;
-  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: var(--clr-accent);
+  color: var(--clr-text-white);
+  border: 0.25rem solid var(--clr-dark);
+  padding: 0.9rem 1.25rem;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: 8px;
+  border-radius: var(--radius-xl);
   margin-bottom: 1rem;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.1);
 }

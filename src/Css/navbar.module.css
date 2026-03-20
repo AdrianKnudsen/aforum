@@ -8,15 +8,15 @@
   justify-content: space-between;
   align-items: center;
   gap: 126px;
-  border-radius: 5px;
-  background: #3a3a3a;
+  border-radius: var(--radius-xl);
+  background: var(--clr-dark);
   position: -webkit-sticky;
   position: sticky;
   top: 10px;
   z-index: 1000;
   transition:
-    height 0.3s ease,
-    padding 0.3s ease;
+    height var(--ease-slow),
+    padding var(--ease-slow);
 }
 
 /* Search mode */
@@ -42,7 +42,7 @@
   height: 100%;
 }
 
-/* Hamburger */
+/* ─── Hamburger ──────────────────────────────────────────────────────────── */
 .hamburgerMenuContainer {
   height: 2.5rem;
   width: 2.5rem;
@@ -63,19 +63,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s ease;
+  transition: transform var(--ease-xslow);
   z-index: 20;
 }
 
-/* Hamburger bars */
 .hamburgerBar {
   display: block;
   width: 24px;
   height: 3px;
-  background: #fff;
+  background: var(--clr-text-white);
   margin: 3px 0;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  border-radius: var(--radius-xl);
+  transition: all var(--ease-slow);
 }
 
 /* Open state (X icon) */
@@ -97,18 +96,18 @@
   transform: rotate(-45deg) translate(7px, -5.5px);
 }
 
-/* Menu panel */
+/* ─── Menu panel ─────────────────────────────────────────────────────────── */
 .navMenu {
   position: absolute;
   top: 50px;
   right: 0;
   width: 100%;
-  background: #3a3a3a;
+  background: var(--clr-dark);
   height: 0;
   overflow: hidden;
-  transition: height 0.5s ease;
+  transition: height var(--ease-xslow);
   z-index: 10;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +126,7 @@
   align-items: center;
   gap: 2rem;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--ease-slow);
 }
 
 .showLinks {
@@ -138,17 +137,17 @@
   margin: 20px 0;
 }
 
-/* Nav links */
+/* ─── Nav links ──────────────────────────────────────────────────────────── */
 .navLinks a {
   position: relative;
-  color: #fff;
+  color: var(--clr-text-white);
   text-decoration: none;
   font-size: 24px;
   display: inline-block;
   overflow: hidden;
   font-weight: 600;
-  font-family: "Josefin Sans", sans-serif;
-  -webkit-text-stroke: 1px #3a3a3a;
+  font-family: var(--font);
+  -webkit-text-stroke: 1px var(--clr-dark);
 }
 
 /* Hover animation */
@@ -157,7 +156,7 @@
   top: 0;
   left: 0;
   overflow: hidden;
-  color: #8cb150;
+  color: var(--clr-accent);
   transform: translateX(-100%);
 }
 
@@ -186,7 +185,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--clr-text-white);
   font-size: 1.5rem;
   cursor: pointer;
   margin-left: 1rem;
@@ -201,7 +200,7 @@
   transform: translateY(-100%);
 }
 
-/* Animations */
+/* ─── Animations ─────────────────────────────────────────────────────────── */
 @keyframes easeIn {
   from {
     opacity: 0;
@@ -235,7 +234,7 @@
   }
 }
 
-/* Desktop */
+/* ─── Desktop ────────────────────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .hamburgerMenuContainer {
     display: none;
