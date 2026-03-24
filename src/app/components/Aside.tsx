@@ -5,12 +5,18 @@ import Image from "next/image";
 import styles from "@/Css/aside.module.css";
 import { useCategory } from "@/app/context/CategoryContext";
 import { CATEGORIES, CATEGORY_KEYS, CategoryKey } from "@/app/config/categories";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Aside() {
   const { selectedCategory, setSelection } = useCategory();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleMainClick = (key: CategoryKey) => {
     setSelection(key, CATEGORIES[key].subcategories[0].value);
+    if (pathname !== "/") {
+      router.push("/");
+    }
   };
 
   return (
